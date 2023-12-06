@@ -1,0 +1,583 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".views.DetalleHabitacionActivity"
+    android:background="@drawable/bckgrnd">
+
+
+ <LinearLayout
+     android:id="@+id/firstLinearLayout"
+     android:layout_width="0dp"
+     android:layout_height="155dp"
+     android:layout_marginTop="40dp"
+     android:orientation="horizontal"
+     app:layout_constraintEnd_toEndOf="parent"
+     app:layout_constraintStart_toStartOf="parent"
+     app:layout_constraintTop_toTopOf="parent">
+
+  <LinearLayout
+      android:id="@+id/Square1"
+      android:padding="12dp"
+      android:layout_marginStart="29dp"
+      android:layout_width="155dp"
+      android:layout_height="155dp"
+      android:background="@drawable/items_detalle_habitacion"
+      android:orientation="vertical">
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="35dp">
+    <TextView
+        android:id="@+id/TextSQ1"
+        android:gravity="center"
+        android:textSize="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="Temperatura"
+        android:fontFamily="@font/fontios"/>
+   </LinearLayout>
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="match_parent">
+    <TextView
+        android:gravity="center"
+        android:paddingBottom="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fontFamily="@font/fontios"
+        android:textSize="40dp"
+        android:id="@+id/temperatura"/>
+   </LinearLayout>
+   <TextView
+       android:id="@+id/BloqSQ1"
+       android:visibility="invisible"
+       android:gravity="center"
+       android:layout_marginTop="-80dp"
+       android:textSize="20dp"
+       android:layout_width="match_parent"
+       android:layout_height="30dp"
+       android:text="Bloqueado"/>
+  </LinearLayout>
+  <LinearLayout
+      android:id="@+id/Square2"
+      android:layout_marginStart="29dp"
+      android:padding="12dp"
+      android:layout_width="155dp"
+      android:layout_height="155dp"
+      android:background="@drawable/items_detalle_habitacion"
+      android:orientation="vertical">
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="35dp">
+    <TextView
+        android:id="@+id/TextSQ2"
+        android:gravity="center"
+        android:textSize="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="Humedad"
+        android:fontFamily="@font/fontios"/>
+   </LinearLayout>
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="match_parent">
+    <TextView
+        android:gravity="center"
+        android:paddingBottom="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fontFamily="@font/fontios"
+        android:textSize="40dp"
+        android:id="@+id/humedad"/>
+   </LinearLayout>
+   <TextView
+       android:id="@+id/BloqSQ2"
+       android:visibility="invisible"
+       android:gravity="center"
+       android:layout_marginTop="-80dp"
+       android:textSize="20dp"
+       android:layout_width="match_parent"
+       android:layout_height="30dp"
+       android:text="Bloqueado"/>
+  </LinearLayout>
+
+ </LinearLayout>
+
+ <LinearLayout
+     android:id="@+id/secondLinearLayout"
+     android:layout_width="0dp"
+     android:layout_height="125dp"
+     android:layout_marginTop="20dp"
+     android:orientation="horizontal"
+     android:gravity="center"
+     app:layout_constraintEnd_toEndOf="parent"
+     app:layout_constraintStart_toStartOf="parent"
+     app:layout_constraintTop_toBottomOf="@+id/firstLinearLayout">
+
+  <LinearLayout
+      android:id="@+id/Square3"
+      android:layout_marginStart="32dp"
+      android:layout_marginEnd="35dp"
+      android:orientation="vertical"
+      android:padding="12dp"
+      android:layout_width="match_parent"
+      android:layout_height="125dp"
+      android:background="@drawable/items_detalle_habitacion">
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:orientation="vertical">
+    <TextView
+        android:id="@+id/TextSQ3"
+        android:layout_width="match_parent"
+        android:layout_height="32dp"
+        android:textSize="20dp"
+        android:text="Corriente"
+        android:gravity="center"/>
+    <TextView
+        android:gravity="center"
+        android:paddingBottom="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fontFamily="@font/fontios"
+        android:textSize="40dp"
+        android:id="@+id/voltaje"/>
+   </LinearLayout>
+   <TextView
+       android:id="@+id/BloqSQ3"
+       android:visibility="invisible"
+       android:layout_marginTop="-65dp"
+       android:gravity="center"
+       android:textSize="20dp"
+       android:layout_width="match_parent"
+       android:layout_height="30dp"
+       android:text="Bloqueado"/>
+  </LinearLayout>
+
+
+ </LinearLayout>
+
+ <LinearLayout
+     android:id="@+id/thirdLinearLayout"
+     android:layout_width="0dp"
+     android:layout_height="0dp"
+     android:layout_marginTop="20dp"
+     android:gravity="center"
+     android:orientation="horizontal"
+     app:layout_constraintBottom_toBottomOf="parent"
+     app:layout_constraintEnd_toEndOf="parent"
+     app:layout_constraintStart_toStartOf="parent"
+     app:layout_constraintTop_toBottomOf="@+id/secondLinearLayout">
+
+  <LinearLayout
+      android:layout_width="355dp"
+      android:layout_height="430dp"
+      android:background="@drawable/items_detalle_habitacion3"
+      android:padding="12dp">
+
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:orientation="vertical">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="32dp"
+        android:layout_marginBottom="10dp"
+        android:gravity="center"
+        android:text="Estado del Entorno"
+        android:textSize="25dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="135dp"
+        android:layout_marginBottom="12dp"
+        android:orientation="horizontal">
+
+     <LinearLayout
+         android:id="@+id/Square4"
+         android:layout_width="135dp"
+         android:layout_height="135dp"
+         android:layout_marginStart="18dp"
+         android:background="@drawable/items_detalle_habitacion"
+         android:orientation="vertical"
+         android:padding="12dp">
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="35dp">
+
+       <TextView
+           android:id="@+id/TextSQ4"
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"
+           android:fontFamily="@font/fontios"
+           android:gravity="center"
+           android:text="Puerta"
+           android:textSize="20dp" />
+      </LinearLayout>
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="match_parent">
+
+       <ImageView
+           android:id="@+id/Puerta"
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"
+           android:layout_marginStart="-3dp"
+           android:layout_marginEnd="1dp"
+           android:fontFamily="@font/fontios"
+           android:gravity="center"
+           android:paddingBottom="15dp"
+           android:textSize="40dp"
+           app:tint="#7E7E7E" />
+      </LinearLayout>
+
+      <TextView
+          android:id="@+id/txtPuerta"
+          android:layout_width="match_parent"
+          android:layout_height="20dp"
+          android:layout_marginTop="-17dp"
+          android:ellipsize="end"
+          android:gravity="center"
+          android:maxLines="1"
+          android:textColor="#7E7E7E" />
+      <TextView
+          android:id="@+id/BloqSQ4"
+          android:visibility="invisible"
+          android:gravity="center"
+          android:layout_marginTop="-75dp"
+          android:textSize="20dp"
+          android:layout_width="match_parent"
+          android:layout_height="30dp"
+          android:text="Bloqueado"/>
+     </LinearLayout>
+     <LinearLayout
+         android:id="@+id/Square5"
+         android:layout_width="135dp"
+         android:layout_height="135dp"
+         android:layout_marginStart="18dp"
+         android:background="@drawable/items_detalle_habitacion"
+         android:orientation="vertical"
+         android:padding="12dp">
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="35dp">
+
+       <TextView
+           android:id="@+id/TextSQ5"
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"
+           android:fontFamily="@font/fontios"
+           android:gravity="center"
+           android:text="Luz"
+           android:textSize="20dp" />
+      </LinearLayout>
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="match_parent">
+
+       <ImageView
+           android:id="@+id/luz"
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"
+           android:layout_marginStart="-3dp"
+           android:layout_marginTop="-4dp"
+           android:layout_marginEnd="1dp"
+           android:fontFamily="@font/fontios"
+           android:gravity="center"
+           android:paddingBottom="15dp"
+           android:textSize="40dp" />
+      </LinearLayout>
+
+      <TextView
+          android:id="@+id/txtLuz"
+          android:layout_width="match_parent"
+          android:layout_height="20dp"
+          android:layout_marginTop="-17dp"
+          android:ellipsize="end"
+          android:gravity="center"
+          android:maxLines="1"
+          android:textColor="#7E7E7E" />
+      <TextView
+          android:id="@+id/BloqSQ5"
+          android:visibility="invisible"
+          android:gravity="center"
+          android:layout_marginTop="-75dp"
+          android:textSize="20dp"
+          android:layout_width="match_parent"
+          android:layout_height="30dp"
+          android:text="Bloqueado"/>
+     </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/Square6"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="18dp"
+        android:layout_marginEnd="18dp"
+        android:layout_marginBottom="18dp"
+        android:background="@drawable/items_detalle_habitacion"
+        android:orientation="vertical"
+        android:padding="12dp">
+
+     <LinearLayout
+         android:layout_width="match_parent"
+         android:layout_height="35dp">
+
+      <TextView
+          android:id="@+id/TextSQ6"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:fontFamily="@font/fontios"
+          android:gravity="center"
+          android:text="Movimiento"
+          android:textSize="20dp" />
+     </LinearLayout>
+
+     <LinearLayout
+         android:layout_width="match_parent"
+         android:orientation="vertical"
+         android:layout_height="match_parent">
+
+      <TextView
+          android:id="@+id/movimiento"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:fontFamily="@font/fontios"
+          android:gravity="center"
+          android:paddingBottom="15dp"
+          android:textSize="40dp" />
+      <TextView
+          android:id="@+id/BloqSQ6"
+          android:visibility="invisible"
+          android:layout_marginTop="-105dp"
+          android:gravity="center"
+          android:textSize="20dp"
+          android:layout_width="match_parent"
+          android:layout_height="30dp"
+          android:text="Bloqueado"/>
+     </LinearLayout>
+    </LinearLayout>
+
+   </LinearLayout>
+
+  </LinearLayout>
+
+ </LinearLayout>
+
+ <LinearLayout
+     android:orientation="vertical"
+     android:id="@+id/viewMenuClosed"
+     android:layout_marginTop="28dp"
+     android:layout_width="14dp"
+     android:layout_height="353dp"
+     android:background="@drawable/items_detalle_habitacion4"
+     app:layout_constraintEnd_toEndOf="parent"
+     app:layout_constraintTop_toTopOf="parent" >
+
+ </LinearLayout>
+
+ <LinearLayout
+     android:id="@+id/layoutMenuContent"
+     android:layout_width="0dp"
+     android:layout_marginTop="28dp"
+     android:layout_height="353dp"
+     android:background="@drawable/items_detalle_habitacion4"
+     android:orientation="vertical"
+     android:visibility="invisible"
+     android:gravity="center"
+     app:layout_constraintEnd_toEndOf="parent"
+     app:layout_constraintTop_toTopOf="parent">
+  <LinearLayout
+      android:layout_width="250dp"
+      android:layout_height="match_parent"
+      android:orientation="vertical"
+      android:padding="10dp"
+      android:layout_marginTop="20dp"
+      android:layout_marginBottom="20dp">
+
+   <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="35dp"
+       android:layout_marginTop="10dp"
+       android:orientation="horizontal">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_weight="1"
+        android:layout_marginEnd="20dp"
+        android:layout_height="match_parent"
+        android:fontFamily="@font/fontios"
+        android:gravity="center"
+        android:text="Temperatura"
+        android:textSize="19dp" />
+   <androidx.appcompat.widget.SwitchCompat
+     android:id="@+id/S1"
+     android:layout_weight="100"
+     android:layout_width="60dp"
+     android:layout_height="40dp"
+     app:layout_constraintStart_toStartOf="parent"
+     app:layout_constraintTop_toTopOf="parent"
+     app:thumbTint="@color/thumb"
+     app:track="@drawable/track"
+     android:thumb="@drawable/thumb"
+     app:trackTint="@color/track" />
+</LinearLayout>
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="35dp"
+       android:layout_marginTop="10dp"
+       android:orientation="horizontal">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_weight="1"
+        android:layout_marginEnd="20dp"
+        android:layout_height="match_parent"
+        android:fontFamily="@font/fontios"
+        android:gravity="center"
+        android:text="Humedad"
+        android:textSize="19dp" />
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/S2"
+        android:layout_weight="100"
+        android:layout_width="60dp"
+        android:layout_height="40dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:thumbTint="@color/thumb"
+        app:track="@drawable/track"
+        android:thumb="@drawable/thumb"
+        app:trackTint="@color/track" />
+   </LinearLayout>
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="35dp"
+       android:layout_marginTop="10dp"
+       android:orientation="horizontal">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_weight="1"
+        android:layout_marginEnd="20dp"
+        android:layout_height="match_parent"
+        android:fontFamily="@font/fontios"
+        android:gravity="center"
+        android:text="Corriente"
+        android:textSize="19dp" />
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/S3"
+        android:layout_weight="100"
+        android:layout_width="60dp"
+        android:layout_height="40dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:thumbTint="@color/thumb"
+        app:track="@drawable/track"
+        android:thumb="@drawable/thumb"
+        app:trackTint="@color/track" />
+   </LinearLayout>
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="35dp"
+       android:layout_marginTop="10dp"
+       android:orientation="horizontal">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_weight="1"
+        android:layout_marginEnd="20dp"
+        android:layout_height="match_parent"
+        android:fontFamily="@font/fontios"
+        android:gravity="center"
+        android:text="Puerta"
+        android:textSize="19dp" />
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/S4"
+        android:layout_weight="100"
+        android:layout_width="60dp"
+        android:layout_height="40dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:thumbTint="@color/thumb"
+        app:track="@drawable/track"
+        android:thumb="@drawable/thumb"
+        app:trackTint="@color/track" />
+   </LinearLayout>
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="35dp"
+       android:layout_marginTop="10dp"
+       android:orientation="horizontal">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_weight="1"
+        android:layout_marginEnd="20dp"
+        android:layout_height="match_parent"
+        android:fontFamily="@font/fontios"
+        android:gravity="center"
+        android:text="Luz"
+        android:textSize="19dp" />
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/S5"
+        android:layout_weight="100"
+        android:layout_width="60dp"
+        android:layout_height="40dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:thumbTint="@color/thumb"
+        app:track="@drawable/track"
+        android:thumb="@drawable/thumb"
+        app:trackTint="@color/track" />
+   </LinearLayout>
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="35dp"
+       android:layout_marginTop="10dp"
+       android:orientation="horizontal">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_weight="1"
+        android:layout_marginEnd="20dp"
+        android:layout_height="match_parent"
+        android:fontFamily="@font/fontios"
+        android:gravity="center"
+        android:text="Movimiento"
+        android:textSize="19dp" />
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/S6"
+        android:layout_weight="100"
+        android:layout_width="60dp"
+        android:layout_height="40dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:thumbTint="@color/thumb"
+        app:track="@drawable/track"
+        android:thumb="@drawable/thumb"
+        app:trackTint="@color/track" />
+   </LinearLayout>
+
+
+  </LinearLayout>
+  <LinearLayout
+      android:layout_width="120dp"
+      android:layout_marginEnd="-10dp"
+      android:layout_marginTop="-15dp"
+      android:layout_height="3dp"
+      android:background="@drawable/items_detalle_habitacion5"
+      />
+
+
+ </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

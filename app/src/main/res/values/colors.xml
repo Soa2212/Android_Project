@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="gray">#AAA9A9</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="thumb">#FFFFFFFF</color>
+    <color name="thumn_on">#4CAF50</color>
+    <color name="track">#8c8c8c</color>
+</resources>
