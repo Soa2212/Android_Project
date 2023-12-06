@@ -30,10 +30,8 @@ public class Recycler extends AppCompatActivity {
         final HabitacionAdapter adapter = new HabitacionAdapter(this);
         recyclerView.setAdapter(adapter);
 
-        // Crear una instancia de ApiService usando Retrofit
         ApiService apiService = RetrofitRequest.getRetrofitInstance().create(ApiService.class);
 
-        // Utilizar la fábrica del ViewModel para pasarle el ApiService
         habitacionViewModel = new ViewModelProvider(this, new HabitacionViewModel.Factory(apiService)).get(HabitacionViewModel.class);
 
         habitacionViewModel.getHabitaciones().observe(this, habitaciones -> {
