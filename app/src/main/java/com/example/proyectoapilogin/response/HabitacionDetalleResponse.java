@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 public class HabitacionDetalleResponse {
-    @SerializedName("Habitacion")
+    @SerializedName("Habitación")
     private Habitacion habitacion;
 
     public Habitacion getHabitacion() {

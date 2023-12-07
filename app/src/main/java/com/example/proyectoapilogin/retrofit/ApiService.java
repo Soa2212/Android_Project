@@ -8,9 +8,9 @@ import retrofit2.http.GET;
 import retrofit2.http.Path;
 
 public interface ApiService {
-    @GET("habitacion")
+    @GET("roomsUser")
     Call<HabitacionResponse> getHabitaciones();
 
-    @GET("habitacion/{id}")
+    @GET("roomdetail/{id}")
     Call<HabitacionDetalleResponse> getHabitacionById(@Path("id") int id);
 }

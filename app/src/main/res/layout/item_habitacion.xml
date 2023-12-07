@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="120dp"
+    android:layout_height="100dp"
     android:background="@drawable/fondo_habitaciones_item"
     android:paddingStart="10dp"
     android:paddingTop="10dp"
@@ -52,7 +52,7 @@
     </LinearLayout>
     <ImageView
         android:id="@+id/detalle_click"
-        android:layout_marginStart="-10dp"
+        android:layout_marginTop="-10dp"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:src="@drawable/flecha"

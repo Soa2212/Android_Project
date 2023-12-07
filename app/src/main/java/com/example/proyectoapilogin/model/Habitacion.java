@@ -7,24 +7,27 @@ public class Habitacion {
     @SerializedName("id")
     private int id;
 
-    @SerializedName("nombre")
+    @SerializedName("user_id")
+    private int user_id;
+
+    @SerializedName("name")
     private String nombre;
-    @SerializedName("sensor_magnetico")
+    @SerializedName("Sensor_magnetico")
     private int sensorMagnetico;
 
-    @SerializedName("movimiento")
+    @SerializedName("Sensor_movimiento")
     private int movimiento;
 
-    @SerializedName("temperatura")
+    @SerializedName("sensor_temperatura")
     private double temperatura;
 
-    @SerializedName("humedad")
+    @SerializedName("sensor_humedad")
     private double humedad;
 
-    @SerializedName("luz")
+    @SerializedName("sensor_luz")
     private int luz;
 
-    @SerializedName("voltaje")
+    @SerializedName("sensor_voltaje")
     private double voltaje;
 
     @SerializedName("created_at")
@@ -111,8 +114,17 @@ public class Habitacion {
         this.updatedAt = updatedAt;
     }
 
-    public Habitacion(int id, String nombre, int sensorMagnetico, int movimiento, double temperatura, double humedad, int luz, double voltaje, String createdAt, String updatedAt) {
+    public int getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
+    }
+
+    public Habitacion(int id, int user_id, String nombre, int sensorMagnetico, int movimiento, double temperatura, double humedad, int luz, double voltaje, String createdAt, String updatedAt) {
         this.id = id;
+        this.user_id = user_id;
         this.nombre = nombre;
         this.sensorMagnetico = sensorMagnetico;
         this.movimiento = movimiento;

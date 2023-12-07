@@ -4,11 +4,11 @@
 
     <!-- Color de fondo gris tirando a turquesa -->
     <gradient
-        android:endColor="#90FFFFFF"
+        android:endColor="#9EFFFFFF"
     android:startColor="#FFFFFF"
     android:type="linear"/>
 
     <corners
-        android:radius="102dp"/>
+        android:radius="40dp"/>
 
 </shape>

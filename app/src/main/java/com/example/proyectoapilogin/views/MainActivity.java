@@ -28,6 +28,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         MisHabitaciones = findViewById(R.id.MisHabitaciones);
+
+
+        //Antes de hacer el intent ir a hacer una peticion a la api para verificacr el token si es valido ahora si hacer
+        //la peticion
         MisHabitaciones.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

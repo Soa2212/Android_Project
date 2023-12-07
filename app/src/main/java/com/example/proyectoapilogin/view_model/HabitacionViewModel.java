@@ -54,7 +54,7 @@ public class HabitacionViewModel extends ViewModel {
         });
     }
 
-        public static class Factory implements ViewModelProvider.Factory {
+    public static class Factory extends ViewModelProvider.NewInstanceFactory {
         private final ApiService apiService;
 
         public Factory(ApiService apiService) {
@@ -65,10 +65,10 @@ public class HabitacionViewModel extends ViewModel {
         @Override
         public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
             if (modelClass.isAssignableFrom(HabitacionViewModel.class)) {
-                //noinspection unchecked
                 return (T) new HabitacionViewModel(apiService);
             }
             throw new IllegalArgumentException("Unknown ViewModel class");
         }
     }
+
 }
