@@ -21,18 +21,15 @@ public class HabitacionViewModel extends ViewModel {
     private MutableLiveData<List<Habitacion>> habitaciones = new MutableLiveData<>();
     private ApiService apiService;
 
-    // Constructor público
     public HabitacionViewModel(ApiService apiService) {
         this.apiService = apiService;
         fetchHabitaciones();
     }
 
-    // Método para obtener las/la habitaciones como LiveData
     public LiveData<List<Habitacion>> getHabitaciones() {
         return habitaciones;
     }
 
-    // Método para realizar la petición a la API y actualizar el LiveData
     private void fetchHabitaciones() {
         apiService.getHabitaciones().enqueue(new Callback<HabitacionResponse>() {
             @Override

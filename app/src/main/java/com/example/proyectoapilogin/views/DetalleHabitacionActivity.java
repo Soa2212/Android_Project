@@ -84,7 +84,7 @@ public class DetalleHabitacionActivity extends AppCompatActivity {
         setContentView(R.layout.activity_detalle_habitacion);
         int habitacionId = getIntent().getIntExtra("habitacionId", -1);
 
-        ApiService apiService = RetrofitRequest.getRetrofitInstance().create(ApiService.class);
+        ApiService apiService = RetrofitRequest.getRetrofitInstance(this).create(ApiService.class);
 
         detalleHabitacionViewModel = new ViewModelProvider(this, new DetalleHabitacionViewModel.Factory(apiService)).get(DetalleHabitacionViewModel.class);
 

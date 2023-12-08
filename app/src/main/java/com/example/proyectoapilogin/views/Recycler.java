@@ -30,7 +30,7 @@ public class Recycler extends AppCompatActivity {
         final HabitacionAdapter adapter = new HabitacionAdapter(this);
         recyclerView.setAdapter(adapter);
 
-        ApiService apiService = RetrofitRequest.getRetrofitInstance().create(ApiService.class);
+        ApiService apiService = RetrofitRequest.getRetrofitInstance(this).create(ApiService.class);
 
         habitacionViewModel = new ViewModelProvider(this, new HabitacionViewModel.Factory(apiService)).get(HabitacionViewModel.class);
 

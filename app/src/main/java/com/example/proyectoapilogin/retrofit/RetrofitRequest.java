@@ -1,7 +1,6 @@
 package com.example.proyectoapilogin.retrofit;
 
 import static com.example.proyectoapilogin.constants.AppConstant.BASE_URL;
-import static com.example.proyectoapilogin.constants.AppConstant.authToken;
 
 
 
@@ -10,17 +9,23 @@ import okhttp3.Request;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import com.example.proyectoapilogin.constants.AppConstant;
+
 public class RetrofitRequest {
     private static Retrofit retrofit;
 
-
-    public static void setAuthToken(String token) {
-        retrofit = null;
+    private static String getAuthTokenFromSharedPreferences(Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        return sharedPreferences.getString("token", null);
     }
 
-    public static Retrofit getRetrofitInstance() {
+    public static Retrofit getRetrofitInstance(Context context) {
         if (retrofit == null) {
             OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
+
+            String authToken = getAuthTokenFromSharedPreferences(context);
 
             if (authToken != null && !authToken.isEmpty()) {
                 httpClient.addInterceptor(chain -> {
@@ -33,7 +38,7 @@ public class RetrofitRequest {
                 });
             }
             retrofit = new Retrofit.Builder()
-                    .baseUrl(BASE_URL)
+                    .baseUrl(AppConstant.BASE_URL)
                     .addConverterFactory(GsonConverterFactory.create())
                     .client(httpClient.build())
                     .build();
