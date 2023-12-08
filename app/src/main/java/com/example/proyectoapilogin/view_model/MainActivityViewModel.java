@@ -1,51 +1,62 @@
 package com.example.proyectoapilogin.view_model;
 
+import androidx.annotation.NonNull;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProvider;
 
-import com.example.proyectoapilogin.model.TokenResponse;
+import com.example.proyectoapilogin.model.Token;
+import com.example.proyectoapilogin.response.TokenResponse;
 import com.example.proyectoapilogin.retrofit.ApiService;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MainActivityViewModel extends ViewModel {
-
-    private final MutableLiveData<Boolean> tokenValid = new MutableLiveData<>();
-    private final ApiService apiService;
+    private MutableLiveData<Boolean> isTokenValid = new MutableLiveData<>();
+    private ApiService apiService;
 
     public MainActivityViewModel(ApiService apiService) {
         this.apiService = apiService;
     }
 
-    public MutableLiveData<Boolean> getTokenValid() {
-        return tokenValid;
+    public LiveData<Boolean> getTokenValidity() {
+        return isTokenValid;
     }
 
-    public void verificarToken(String token) {
-        Call<TokenResponse> call = apiService.verificarToken();
-
-        call.enqueue(new Callback<TokenResponse>() {
+    public void verifyToken(String token) {
+        apiService.verificarToken(token).enqueue(new Callback<Token>() {
             @Override
-            public void onResponse(Call<TokenResponse> call, Response<TokenResponse> response) {
+            public void onResponse(Call<Token> call, Response<Token> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    TokenResponse apiResponse = response.body();
-                    if (apiResponse.getProcess().equals("successful") && apiResponse.getMessage()) {
-                        tokenValid.setValue(true);
-                    } else {
-                        tokenValid.setValue(false);
-                    }
+                    isTokenValid.setValue(response.body().getMessage());
                 } else {
-                    tokenValid.setValue(false);
+                    isTokenValid.setValue(false);
                 }
             }
 
             @Override
-            public void onFailure(Call<TokenResponse> call, Throwable t) {
-                tokenValid.setValue(false);
+            public void onFailure(Call<Token> call, Throwable t) {
+                isTokenValid.setValue(false);
             }
-
-
         });
+    }
+
+    public static class Factory implements ViewModelProvider.Factory {
+        private final ApiService apiService;
+
+        public Factory(ApiService apiService) {
+            this.apiService = apiService;
+        }
+
+        @NonNull
+        @Override
+        public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
+            if (modelClass.isAssignableFrom(MainActivityViewModel.class)) {
+                return (T) new MainActivityViewModel(apiService);
+            }
+            throw new IllegalArgumentException("Unknown ViewModel class");
+        }
     }
 }

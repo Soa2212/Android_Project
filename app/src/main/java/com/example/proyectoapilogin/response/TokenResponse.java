@@ -1,4 +1,6 @@
-package com.example.proyectoapilogin.model;
+package com.example.proyectoapilogin.response;
+
+import com.example.proyectoapilogin.model.Token;
 
 public class TokenResponse {
     private String process;

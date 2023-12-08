@@ -1,6 +1,6 @@
 package com.example.proyectoapilogin.retrofit;
 
-import com.example.proyectoapilogin.model.TokenResponse;
+import com.example.proyectoapilogin.model.Token;
 import com.example.proyectoapilogin.response.HabitacionDetalleResponse;
 import com.example.proyectoapilogin.response.HabitacionResponse;
 
@@ -17,5 +17,5 @@ public interface ApiService {
     Call<HabitacionDetalleResponse> getHabitacionById(@Path("id") int id);
 
     @GET("validartoken")
-    Call<TokenResponse> verificarToken();
+    Call<Token> verificarToken(@Header("Authorization") String token);
 }
