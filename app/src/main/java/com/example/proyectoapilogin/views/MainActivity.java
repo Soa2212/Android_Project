@@ -24,20 +24,14 @@ public class MainActivity extends AppCompatActivity {
     private MainActivityViewModel viewModel;
     private String savedToken;
 
-    protected void onResume() {
-
-        super.onResume();
-         savedToken = retrieveTokenFromSharedPreferences();
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         MisHabitaciones = findViewById(R.id.MisHabitaciones);
+        savedToken = retrieveTokenFromSharedPreferences();
 
-            ApiService apiService = RetrofitRequest.getRetrofitInstance(this).create(ApiService.class);
 
             if(savedToken != null){
                 MisHabitaciones.setOnClickListener(v -> {
@@ -48,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(context, Login.class);
                 context.startActivity(intent);
             }
-
+            // ApiService apiService = RetrofitRequest.getRetrofitInstance(this).create(ApiService.class);
             //viewModel = new ViewModelProvider(this, new MainActivityViewModel.Factory(apiService)).get(MainActivityViewModel.class);
             //viewModel.getTokenValidity().observe(this, isTokenValid -> {
                // if (isTokenValid) {
