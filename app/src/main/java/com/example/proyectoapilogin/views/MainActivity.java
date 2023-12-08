@@ -24,12 +24,10 @@ public class MainActivity extends AppCompatActivity {
     private MainActivityViewModel viewModel;
     private String savedToken;
 
-    private boolean TokenU= false;
     protected void onResume() {
 
         super.onResume();
-        String updatedToken = retrieveTokenFromSharedPreferences();
-        viewModel.verifyToken(updatedToken);
+         savedToken = retrieveTokenFromSharedPreferences();
     }
 
     @Override
@@ -39,33 +37,33 @@ public class MainActivity extends AppCompatActivity {
 
         MisHabitaciones = findViewById(R.id.MisHabitaciones);
 
-        if(TokenU == false){
             ApiService apiService = RetrofitRequest.getRetrofitInstance(this).create(ApiService.class);
 
-            viewModel = new ViewModelProvider(this, new MainActivityViewModel.Factory(apiService)).get(MainActivityViewModel.class);
-
-            viewModel.getTokenValidity().observe(this, isTokenValid -> {
-                if (isTokenValid) {
-                    MisHabitaciones.setOnClickListener(v -> {
-                        Intent intent = new Intent(context, Recycler.class);
-                        context.startActivity(intent);
-                    });
-                } else {
-                    Intent intent = new Intent(context, Login.class);
+            if(savedToken != null){
+                MisHabitaciones.setOnClickListener(v -> {
+                    Intent intent = new Intent(context, Recycler.class);
                     context.startActivity(intent);
-                    TokenU = true;
-                }
-            });
-        }
-        else {
-            MisHabitaciones.setOnClickListener(v -> {
-                Intent intent = new Intent(context, Recycler.class);
+                });
+            }else{
+                Intent intent = new Intent(context, Login.class);
                 context.startActivity(intent);
-            });
-        }
+            }
 
-        viewModel.verifyToken(savedToken);
+            //viewModel = new ViewModelProvider(this, new MainActivityViewModel.Factory(apiService)).get(MainActivityViewModel.class);
+            //viewModel.getTokenValidity().observe(this, isTokenValid -> {
+               // if (isTokenValid) {
+                   // MisHabitaciones.setOnClickListener(v -> {
+                       // Intent intent = new Intent(context, Recycler.class);
+                      // context.startActivity(intent);
+                   // });
+               // } else {
+                //    Intent intent = new Intent(context, Login.class);
+                 //   context.startActivity(intent);
+              //  }
+         //   });
+        //viewModel.verifyToken(savedToken);
     }
+
 
 
     private String retrieveTokenFromSharedPreferences() {
