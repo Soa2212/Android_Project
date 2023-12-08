@@ -22,6 +22,15 @@ public class MainActivity extends AppCompatActivity {
     private TextView MisHabitaciones;
     private Context context = this;
     private MainActivityViewModel viewModel;
+    private String savedToken;
+
+    private boolean TokenU= false;
+    protected void onResume() {
+
+        super.onResume();
+        String updatedToken = retrieveTokenFromSharedPreferences();
+        viewModel.verifyToken(updatedToken);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,40 +39,37 @@ public class MainActivity extends AppCompatActivity {
 
         MisHabitaciones = findViewById(R.id.MisHabitaciones);
 
-        String savedToken = retrieveTokenFromSharedPreferences();
+        if(TokenU == false){
+            ApiService apiService = RetrofitRequest.getRetrofitInstance(this).create(ApiService.class);
 
-        ApiService apiService = RetrofitRequest.getRetrofitInstance(this).create(ApiService.class);
+            viewModel = new ViewModelProvider(this, new MainActivityViewModel.Factory(apiService)).get(MainActivityViewModel.class);
 
-        viewModel = new ViewModelProvider(this, new MainActivityViewModel.Factory(apiService)).get(MainActivityViewModel.class);
-
-        viewModel.getTokenValidity().observe(this, isTokenValid -> {
-            if (isTokenValid) {
-                Log.d("Token1", String.valueOf(isTokenValid));
-                MisHabitaciones.setOnClickListener(v -> {
-                    Intent intent = new Intent(context, Recycler.class);
+            viewModel.getTokenValidity().observe(this, isTokenValid -> {
+                if (isTokenValid) {
+                    MisHabitaciones.setOnClickListener(v -> {
+                        Intent intent = new Intent(context, Recycler.class);
+                        context.startActivity(intent);
+                    });
+                } else {
+                    Intent intent = new Intent(context, Login.class);
                     context.startActivity(intent);
-                });
-            } else {
-                Log.d("Token2", String.valueOf(isTokenValid));
-                Intent intent = new Intent(context, Login.class);
+                    TokenU = true;
+                }
+            });
+        }
+        else {
+            MisHabitaciones.setOnClickListener(v -> {
+                Intent intent = new Intent(context, Recycler.class);
                 context.startActivity(intent);
-            }
-        });
+            });
+        }
 
         viewModel.verifyToken(savedToken);
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        String updatedToken = retrieveTokenFromSharedPreferences();
-        viewModel.verifyToken(updatedToken);
-    }
 
-    // Método para obtener el token almacenado en SharedPreferences
     private String retrieveTokenFromSharedPreferences() {
         SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
         return sharedPreferences.getString("token", "");
     }
 }
-

@@ -1,5 +1,7 @@
 package com.example.proyectoapilogin.view_model;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -29,7 +31,7 @@ public class MainActivityViewModel extends ViewModel {
         apiService.verificarToken(token).enqueue(new Callback<Token>() {
             @Override
             public void onResponse(Call<Token> call, Response<Token> response) {
-                if (response.isSuccessful() && response.body() != null) {
+                if (response.isSuccessful()) {
                     isTokenValid.setValue(response.body().getMessage());
                 } else {
                     isTokenValid.setValue(false);
