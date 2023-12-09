@@ -8,22 +8,57 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.proyectoapilogin.R;
+import com.example.proyectoapilogin.retrofit.ApiService;
+import com.example.proyectoapilogin.retrofit.RetrofitRequest;
+import com.example.proyectoapilogin.view_model.LoginViewModel;
 
 public class Login extends AppCompatActivity {
-    private TextView token;
-    private String Token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTkyLjE2OC4xMDAuODQvYXBpL2xvZ2luIiwiaWF0IjoxNzAyMDY1MTEzLCJleHAiOjE3MDIwNjg3MTMsIm5iZiI6MTcwMjA2NTExMywianRpIjoieFFDYU9CS0tRMkNyRm02VSIsInN1YiI6IjEiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.OTIwJ1uLzvYi_dqpAgxoytKiz4Jr6U2Wmndx2KOv9EU";
+    private Button login, registro;
+    private EditText email, password;
+    private LoginViewModel loginViewModel;
+    private TextView errores;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        login = findViewById(R.id.btnLogin);
+        email = findViewById(R.id.etEmail);
+        password = findViewById(R.id.etPasssword);
+        errores = findViewById(R.id.tvError);
+        registro = findViewById(R.id.btnRegister);
 
-        token = findViewById(R.id.Token);
+        ApiService apiService = RetrofitRequest.getRetrofitInstance(this).create(ApiService.class);
+        loginViewModel = new LoginViewModel(apiService, this);
 
-        token.setOnClickListener(new View.OnClickListener() {
+        login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                errores.setText("");
+                String correo = email.getText().toString();
+                String pass = password.getText().toString();
+                loginViewModel.verifyLogin(correo, pass);
+            }
+        });
+
+        registro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Login.this, Registro.class);
+                startActivity(intent);
+            }
+        });
+
+        loginViewModel.getLoginError().observe(this, error -> {
+            errores.setText(error);
+        });
+
+        /*token.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 saveTokenInSharedPreferences(Token);
@@ -39,5 +74,6 @@ public class Login extends AppCompatActivity {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("token", token);
         editor.apply();
+    } */
     }
 }
