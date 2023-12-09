@@ -2,6 +2,7 @@ package com.example.proyectoapilogin.view_model;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
@@ -34,6 +35,7 @@ public class LoginViewModel extends ViewModel {
                 if (response.body() != null) {
                     if (response.body().getProcess().equals("successful")) {
                         loginError.setValue("Iniciando sesión...");
+                        saveTokenInSharedPreferences(response.body().getToken());
                         Intent intent = new Intent(context, MainActivity.class);
                         context.startActivity(intent);
                     } else if (response.body().getProcess().equals("failed")) {
@@ -49,5 +51,12 @@ public class LoginViewModel extends ViewModel {
 
             }
         });
+    }
+
+    private void saveTokenInSharedPreferences(String token) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("token", token);
+        editor.apply();
     }
 }
