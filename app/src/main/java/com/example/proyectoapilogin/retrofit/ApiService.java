@@ -9,6 +9,7 @@ import com.example.proyectoapilogin.response.LoginResponse;
 import com.example.proyectoapilogin.response.RegistroResponse;
 
 import retrofit2.Call;
+import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -43,4 +44,9 @@ public interface ApiService {
     Call<CrearHabitacionResponse> storeRoom(
             @Header("Authorization") String token,
             @Field("name") String name);
+
+    @DELETE("roomsDestroy/{id}")
+    Call<LoginResponse> destroyRoom(
+            @Header("Authorization") String token,
+            @Path("id") int id);
 }

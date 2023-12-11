@@ -2,6 +2,8 @@ package com.example.proyectoapilogin.views;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -10,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.Transformation;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -17,6 +20,7 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.appcompat.widget.Toolbar;
@@ -38,6 +42,7 @@ public class DetalleHabitacionActivity extends AppCompatActivity {
     private TextView Temperatura,Humedad,Voltaje,Movimiento,txtPuerta,txtLuz,TextSQ1,BloqSQ1,TextSQ2,BloqSQ2,TextSQ3,BloqSQ3,TextSQ4,BloqSQ4,TextSQ5,BloqSQ5,TextSQ6,BloqSQ6;
     private SwitchCompat S1,S2,S3,S4,S5,S6;
     private ImageView Puerta,luz;
+    private Button eliminar;
     Context context = this;
     private final Handler handler = new Handler();
     private int IdentifyFS;
@@ -88,6 +93,7 @@ public class DetalleHabitacionActivity extends AppCompatActivity {
 
         detalleHabitacionViewModel = new ViewModelProvider(this, new DetalleHabitacionViewModel.Factory(apiService)).get(DetalleHabitacionViewModel.class);
 
+        eliminar = findViewById(R.id.btnEliminar);
         viewMenuClosed = findViewById(R.id.viewMenuClosed);
         layoutMenuContent = findViewById(R.id.layoutMenuContent);
         Temperatura = findViewById(R.id.temperatura);
@@ -128,7 +134,39 @@ public class DetalleHabitacionActivity extends AppCompatActivity {
         int colorTexto1 = ContextCompat.getColor(context, R.color.gray);
         int colorTexto2 = ContextCompat.getColor(context, R.color.black);
 
+        eliminar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new AlertDialog.Builder(DetalleHabitacionActivity.this)
+                        .setTitle("Eliminar Habitación")
+                        .setMessage("¿Estás seguro de que quieres eliminar esta habitación?")
+                        .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // Llama a la función eliminarHabitacion
+                                detalleHabitacionViewModel.eliminarHabitacion(DetalleHabitacionActivity.this, habitacionId);
+                            }
+                        })
+                        .setNegativeButton(android.R.string.cancel, null)
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
+            }
+        });
 
+        detalleHabitacionViewModel.getIsDeleteSuccessful().observe(this, isSuccessful -> {
+            if (isSuccessful) {
+                new AlertDialog.Builder(DetalleHabitacionActivity.this)
+                        .setTitle("Habitación eliminada")
+                        .setMessage("La habitación ha sido eliminada exitosamente.")
+                        .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                Intent intent = new Intent(DetalleHabitacionActivity.this, Recycler.class);
+                                startActivity(intent);
+                                finish();
+                            }
+                        })
+                        .show();
+            }
+        });
 
         S1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
