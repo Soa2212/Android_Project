@@ -19,7 +19,7 @@ import com.example.proyectoapilogin.view_model.HabitacionViewModel;
 import com.example.proyectoapilogin.view_model.MainActivityViewModel;
 
 public class MainActivity extends AppCompatActivity {
-    private TextView MisHabitaciones;
+    private TextView MisHabitaciones, crearHabitacion;
     private Context context = this;
     private MainActivityViewModel viewModel;
     private String savedToken;
@@ -30,7 +30,16 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         MisHabitaciones = findViewById(R.id.MisHabitaciones);
+        crearHabitacion = findViewById(R.id.HabitacionEdit);
         savedToken = retrieveTokenFromSharedPreferences();
+
+        crearHabitacion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, CrearHabitacion.class);
+                context.startActivity(intent);
+            }
+        });
 
 
             if(savedToken != null){

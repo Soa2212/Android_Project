@@ -1,18 +1,13 @@
 package com.example.proyectoapilogin.view_model;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.CountDownTimer;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.proyectoapilogin.response.LoginResponse;
 import com.example.proyectoapilogin.response.RegistroResponse;
 import com.example.proyectoapilogin.retrofit.ApiService;
-import com.example.proyectoapilogin.views.Login;
-import com.example.proyectoapilogin.views.MainActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,19 +19,25 @@ import retrofit2.Response;
 public class RegistroViewModel extends ViewModel {
     private final MutableLiveData<String> registerError = new MutableLiveData<>();
     private ApiService apiService;
-    private Context context;
     private final MutableLiveData<String> registerProcess = new MutableLiveData<>();
+    private final MutableLiveData<Boolean> successfulRegister = new MutableLiveData<>();
 
     public LiveData<String> getRegisterProcess() {
         return registerProcess;
     }
-    public RegistroViewModel(ApiService apiService, Context context){
+
+    public RegistroViewModel(ApiService apiService){
         this.apiService = apiService;
-        this.context = context;
     }
+
     public LiveData<String> getRegisterError() {
         return registerError;
     }
+
+    public LiveData<Boolean> getSuccessfulRegister() {
+        return successfulRegister;
+    }
+
     public void verifyRegister(String nombre, String email, String password, String passwordconfirm) {
         apiService.register(nombre, email, password, passwordconfirm).enqueue(new Callback<RegistroResponse>() {
             @Override
@@ -44,14 +45,15 @@ public class RegistroViewModel extends ViewModel {
                 if (response.body() != null) {
                     registerProcess.setValue(response.body().getProcess());
                     if (response.body().getProcess().equals("successful")) {
-                        new CountDownTimer(10000, 1000) {
-                            public void onFinish() {
-                                Intent intent = new Intent(context, Login.class);
-                                context.startActivity(intent);
-                            }
+                        new CountDownTimer(5000, 1000) {
+                            @Override
                             public void onTick(long millisUntilFinished) {
-                                registerError.setValue("Se ha enviado un email de verificación a su correo. Una vez confirmado" +
-                                        " podrá iniciar sesión.\n Volviendo al inicio en " + millisUntilFinished / 1000 + " segundos");
+                                registerError.setValue("Se ha enviado un correo de confirmación a su email. Verifiquelo e inicie sesión para registrar su cuenta.\n" +
+                                        "Volviendo al inicio en: " + millisUntilFinished / 1000 + " segundos");
+                            }
+                            @Override
+                            public void onFinish() {
+                                successfulRegister.setValue(true);
                             }
                         }.start();
                     } else if (response.body().getProcess().equals("failed")) {
@@ -71,8 +73,10 @@ public class RegistroViewModel extends ViewModel {
                         }
                         String errorString = String.join("\n", errorList);
                         registerError.setValue(errorString);
+                        successfulRegister.setValue(false);
                     }
                 } else {
+                    successfulRegister.setValue(false);
                     System.out.println("Error de respuesta de la API: " + response.errorBody());
                 }
             }
