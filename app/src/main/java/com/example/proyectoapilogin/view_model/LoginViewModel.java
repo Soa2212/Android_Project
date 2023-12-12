@@ -1,6 +1,8 @@
 package com.example.proyectoapilogin.view_model;
 
+import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -19,9 +21,12 @@ public class LoginViewModel extends ViewModel {
     private final MutableLiveData<Boolean> finishActivity = new MutableLiveData<>();
     private final MutableLiveData<Boolean> successfulLogin = new MutableLiveData<>();
     private ApiService apiService;
+    private Context context;
 
-    public LoginViewModel(ApiService apiService){
+
+    public LoginViewModel(ApiService apiService, Context context) {
         this.apiService = apiService;
+        this.context = context;
     }
 
     public MutableLiveData<Boolean> getBlock() {
@@ -43,6 +48,7 @@ public class LoginViewModel extends ViewModel {
                 if (response.body() != null) {
                     if (response.body().getProcess().equals("successful")) {
                         loginError.setValue("Iniciando sesión...");
+                        saveTokenInSharedPreferences(response.body().getToken());
                         block.setValue(true);
                         successfulLogin.setValue(true);
                     } else if (response.body().getProcess().equals("failed")) {
@@ -61,4 +67,12 @@ public class LoginViewModel extends ViewModel {
             }
         });
     }
+
+    private void saveTokenInSharedPreferences(String token) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("token", token);
+        editor.apply();
+    }
+
 }

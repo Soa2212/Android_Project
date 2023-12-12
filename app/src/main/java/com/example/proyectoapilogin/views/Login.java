@@ -32,7 +32,7 @@ public class Login extends AppCompatActivity {
         registro = findViewById(R.id.btnRegister);
 
         ApiService apiService = RetrofitRequest.getRetrofitInstance(this).create(ApiService.class);
-        loginViewModel = new LoginViewModel(apiService);
+        loginViewModel = new LoginViewModel(apiService,this);
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override
