@@ -1,97 +1,147 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".views.Login"
-    android:background="@drawable/bckgrnd"
-    android:padding="30dp">
+    android:background="@drawable/bckgrnd">
 
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="68dp"
-        android:background="@drawable/fondo_habitaciones_item"
-        android:fontFamily="@font/title"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:text="RoomGuardian"
-        android:textColor="@color/black"
-        android:textSize="40sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/etEmail"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:hint="Correo"
-        android:textColor="@color/black"
-        android:textColorHint="@color/black"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/title"
-        android:layout_marginTop="50dp"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        android:layout_height="match_parent"
+        android:background="@drawable/items_detalle_habitacion7"
+        android:padding="30dp">
 
-    <EditText
-        android:id="@+id/etPasssword"
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:hint="Contraseña"
-        android:textColor="@color/black"
-        android:textColorHint="@color/black"
-        android:inputType="textPassword"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/etEmail"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        <ImageView
+            android:id="@+id/myImageView"
+            android:layout_width="220dp"
+            android:layout_height="220dp"
+            android:layout_marginTop="40dp"
+            android:src="@drawable/imgloguser"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:elevation="4dp" />
 
-    <Button
-        android:layout_marginTop="15dp"
-        android:id="@+id/btnLogin"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Iniciar Sesión"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/etPasssword"
-        app:layout_constraintEnd_toEndOf="parent"/>
+      <LinearLayout
+          android:layout_marginTop="150dp"
+          android:id="@+id/Mnu1"
+          android:background="@drawable/items_detalle_habitacion8"
+          android:layout_width="330dp"
+          android:layout_height="350dp"
+          android:gravity="center"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          android:orientation="vertical">
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="Room Guardian"
+              android:fontFamily="@font/fontios"
+              android:layout_marginTop="-30dp"
+              android:layout_marginBottom="30dp"
+              android:textSize="30dp"/>
+          <LinearLayout
+              android:layout_width="300dp"
+              android:layout_height="50dp">
+              <TextView
+                  android:text="👤"
+                  android:textSize="20dp"
+                  android:gravity="center"
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:fontFamily="@font/fontios"
-        android:textColor="@color/black"
-        android:id="@+id/tvError"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btnLogin"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="20dp"/>
+                  android:layout_width="50dp"
+                  android:background="#03264d"
+                  android:layout_height="match_parent"/>
+              <EditText
+                  android:paddingStart="15dp"
+              android:background="#3d5678"
+              android:fontFamily="@font/fontios"
+              android:id="@+id/etEmail"
+              android:textSize="18dp"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:hint="Email"
+              android:textColorHint="#AAFFFFFF"/>
+          </LinearLayout>
+          <LinearLayout
+              android:layout_marginTop="20dp"
+              android:layout_width="300dp"
+              android:layout_height="50dp">
+              <TextView
+                  android:text="🔐"
+                  android:gravity="center"
+                  android:textSize="20dp"
+                  android:layout_width="50dp"
+                  android:background="#03264d"
+                  android:layout_height="match_parent"/>
+              <EditText
+                  android:paddingStart="15dp"
+                  android:background="#3d5678"
+                  android:fontFamily="@font/fontios"
+                  android:id="@+id/etPasssword"
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:hint="Contraseña"
+                  android:textColorHint="#AAFFFFFF"
+                  android:inputType="textPassword"/>
+          </LinearLayout>
 
-    <TextView
-        android:id="@+id/tvRegister"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="52dp"
-        android:fontFamily="@font/fontios"
-        android:text="¿No tienes cuenta? Regístrate"
-        android:textColor="@color/black"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent" />
+      </LinearLayout>
+        <TextView
+            app:layout_constraintTop_toBottomOf="@id/Mnu1"
+            android:id="@+id/btnLogin"
+            android:textColor="@color/white"
+            android:textSize="15dp"
+            android:fontFamily="@font/fontios"
+            android:gravity="center"
+            android:background="@drawable/items_detalle_habitacion9"
+            android:layout_width="200dp"
+            android:layout_height="40dp"
+            android:text="Iniciar Sesión"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
 
-    <Button
-        android:layout_marginTop="10dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Crear una cuenta"
-        android:id="@+id/btnRegister"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvRegister"
-        app:layout_constraintEnd_toEndOf="parent"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:fontFamily="@font/fontios"
+            android:textColor="@color/white"
+            android:textSize="15dp"
+            android:id="@+id/tvError"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnLogin"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="20dp"/>
+        <TextView
+            android:id="@+id/tvRegister"
+            android:layout_marginTop="100dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="52dp"
+            android:fontFamily="@font/fontios"
+            android:text="¿No tienes cuenta? Regístrate"
+            android:textColor="@color/black"
+            app:layout_constraintTop_toBottomOf="@id/tvError"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+        <TextView
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:layout_width="150dp"
+            android:layout_height="30dp"
+            android:textColor="@color/black"
+            android:textSize="16dp"
+            android:text="Crear una cuenta"
+            android:background="@drawable/items_detalle_habitacion11"
+            android:id="@+id/btnRegister"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvRegister"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>

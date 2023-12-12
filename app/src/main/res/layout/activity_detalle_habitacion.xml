@@ -353,7 +353,7 @@
           android:fontFamily="@font/fontios"
           android:gravity="center"
           android:paddingBottom="15dp"
-          android:textSize="40dp" />
+          android:textSize="20dp" />
       <TextView
           android:id="@+id/BloqSQ6"
           android:visibility="invisible"
@@ -377,7 +377,7 @@
      android:id="@+id/viewMenuClosed"
      android:layout_marginTop="28dp"
      android:layout_width="14dp"
-     android:layout_height="353dp"
+     android:layout_height="380dp"
      android:background="@drawable/items_detalle_habitacion4"
      app:layout_constraintEnd_toEndOf="parent"
      app:layout_constraintTop_toTopOf="parent" >
@@ -388,7 +388,7 @@
      android:id="@+id/layoutMenuContent"
      android:layout_width="0dp"
      android:layout_marginTop="28dp"
-     android:layout_height="400dp"
+     android:layout_height="385dp"
      android:background="@drawable/items_detalle_habitacion4"
      android:orientation="vertical"
      android:visibility="invisible"
@@ -565,12 +565,22 @@
         android:thumb="@drawable/thumb"
         app:trackTint="@color/track" />
    </LinearLayout>
-   <Button
-       android:id="@+id/btnEliminar"
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       android:text="Eliminar Habitación"
-       android:layout_marginTop="10dp"/>
+<LinearLayout
+    android:layout_marginTop="5dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center">
+ <TextView
+     android:gravity="center"
+     android:id="@+id/btnEliminar"
+     android:fontFamily="@font/fontios"
+     android:background="@drawable/items_detalle_habitacion10"
+     android:textColor="@color/white"
+     android:layout_width="110dp"
+     android:layout_height="35dp"
+     android:text="Eliminar Habitación"
+     android:layout_marginTop="10dp"/>
+</LinearLayout>
 
 
   </LinearLayout>

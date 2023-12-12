@@ -39,10 +39,9 @@ import com.example.proyectoapilogin.view_model.DetalleHabitacionViewModel;
 public class DetalleHabitacionActivity extends AppCompatActivity {
     private DetalleHabitacionViewModel detalleHabitacionViewModel;
     private LinearLayout layoutMenuContent,viewMenuClosed,Square1,Square2,Square3,Square4,Square5,Square6;
-    private TextView Temperatura,Humedad,Voltaje,Movimiento,txtPuerta,txtLuz,TextSQ1,BloqSQ1,TextSQ2,BloqSQ2,TextSQ3,BloqSQ3,TextSQ4,BloqSQ4,TextSQ5,BloqSQ5,TextSQ6,BloqSQ6;
+    private TextView eliminar,Temperatura,Humedad,Voltaje,Movimiento,txtPuerta,txtLuz,TextSQ1,BloqSQ1,TextSQ2,BloqSQ2,TextSQ3,BloqSQ3,TextSQ4,BloqSQ4,TextSQ5,BloqSQ5,TextSQ6,BloqSQ6;
     private SwitchCompat S1,S2,S3,S4,S5,S6;
     private ImageView Puerta,luz;
-    private Button eliminar;
     Context context = this;
     private final Handler handler = new Handler();
     private int IdentifyFS;
@@ -350,7 +349,12 @@ public class DetalleHabitacionActivity extends AppCompatActivity {
                 Puerta.setImageResource(R.drawable.candado_0);
                 txtPuerta.setText("Abierto");
             }
-            Movimiento.setText(String.valueOf(habitacion.getMovimiento()));
+            if(habitacion.getMovimiento() == 1){
+                Movimiento.setText("Se detecto movimiento recientemente.");
+            }
+            else {
+                Movimiento.setText("No se ha detectado ningún movimiento recientemente.");
+            }
         });
     }
 

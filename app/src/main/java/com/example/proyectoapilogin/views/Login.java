@@ -16,10 +16,9 @@ import com.example.proyectoapilogin.retrofit.RetrofitRequest;
 import com.example.proyectoapilogin.view_model.LoginViewModel;
 
 public class Login extends AppCompatActivity {
-    private Button login, registro;
     private EditText email, password;
     private LoginViewModel loginViewModel;
-    private TextView errores;
+    private TextView errores,login,registro;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
