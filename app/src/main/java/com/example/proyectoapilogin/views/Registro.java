@@ -18,7 +18,7 @@ import com.example.proyectoapilogin.retrofit.RetrofitRequest;
 import com.example.proyectoapilogin.view_model.RegistroViewModel;
 
 public class Registro extends AppCompatActivity {
-    private Button registro;
+    private TextView registro,login;
     private EditText nombre, email, password, passwordconfirm;
     private RegistroViewModel registroViewModel;
     private TextView errores;
@@ -33,6 +33,7 @@ public class Registro extends AppCompatActivity {
         password = findViewById(R.id.etPasssword);
         passwordconfirm = findViewById(R.id.etPasswordConfirm);
         errores = findViewById(R.id.tvError);
+        login = findViewById(R.id.btnLogin);
 
         ApiService apiService = RetrofitRequest.getRetrofitInstance(this).create(ApiService.class);
         registroViewModel = new RegistroViewModel(apiService);
@@ -46,6 +47,15 @@ public class Registro extends AppCompatActivity {
                 String pass = password.getText().toString();
                 String passconfirm = passwordconfirm.getText().toString();
                 registroViewModel.verifyRegister(name, correo, pass, passconfirm);
+            }
+        });
+
+        login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Registro.this, Login.class);
+                startActivity(intent);
+                finish();
             }
         });
 

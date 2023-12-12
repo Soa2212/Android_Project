@@ -328,6 +328,7 @@ public class DetalleHabitacionActivity extends AppCompatActivity {
     private void fetchAndUpdateData(int habitacionId) {
         detalleHabitacionViewModel.fetchHabitacionById(habitacionId);
         detalleHabitacionViewModel.getHabitacion().observe(this, habitacion -> {
+            Log.d("Habitacion2212",String.valueOf(habitacion.getSensorMagnetico()));
             Temperatura.setText(String.valueOf(habitacion.getTemperatura())+"°");
             Humedad.setText(String.valueOf(habitacion.getHumedad())+"%");
             Voltaje.setText(String.valueOf(habitacion.getVoltaje())+" V");

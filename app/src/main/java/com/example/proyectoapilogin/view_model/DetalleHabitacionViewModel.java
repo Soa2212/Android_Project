@@ -26,7 +26,6 @@ public class DetalleHabitacionViewModel extends ViewModel {
     public LiveData<Boolean> getIsDeleteSuccessful() {
         return isDeleteSuccessful;
     }
-    private SharedPreferences sharedPreferences;
 
     private DetalleHabitacionViewModel(ApiService apiService) {
         this.apiService = apiService;
