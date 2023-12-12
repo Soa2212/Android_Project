@@ -2,8 +2,6 @@ package com.example.proyectoapilogin.views;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -34,11 +32,12 @@ public class Login extends AppCompatActivity {
         registro = findViewById(R.id.btnRegister);
 
         ApiService apiService = RetrofitRequest.getRetrofitInstance(this).create(ApiService.class);
-        loginViewModel = new LoginViewModel(apiService, this);
+        loginViewModel = new LoginViewModel(apiService);
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                login.setEnabled(false);
                 errores.setText("");
                 String correo = email.getText().toString();
                 String pass = password.getText().toString();
@@ -58,22 +57,20 @@ public class Login extends AppCompatActivity {
             errores.setText(error);
         });
 
-        /*token.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                saveTokenInSharedPreferences(Token);
+        loginViewModel.getBlock().observe(this, block -> {
+            if (block) {
+                login.setEnabled(false);
+            } else {
+                login.setEnabled(true);
+            }
+        });
+
+        loginViewModel.getSuccessfulLogin().observe(this, successful -> {
+            if (successful) {
                 Intent intent = new Intent(Login.this, MainActivity.class);
                 startActivity(intent);
                 finish();
             }
         });
-    }
-
-    private void saveTokenInSharedPreferences(String token) {
-        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("token", token);
-        editor.apply();
-    } */
     }
 }
