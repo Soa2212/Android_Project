@@ -57,6 +57,7 @@ public class LoginViewModel extends ViewModel {
         SharedPreferences sharedPreferences = context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("token", token);
+        Log.d("Token2212",token);
         editor.apply();
     }
 }

@@ -42,20 +42,20 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(context, Login.class);
                 context.startActivity(intent);
             }
-            // ApiService apiService = RetrofitRequest.getRetrofitInstance(this).create(ApiService.class);
-            //viewModel = new ViewModelProvider(this, new MainActivityViewModel.Factory(apiService)).get(MainActivityViewModel.class);
-            //viewModel.getTokenValidity().observe(this, isTokenValid -> {
-               // if (isTokenValid) {
-                   // MisHabitaciones.setOnClickListener(v -> {
-                       // Intent intent = new Intent(context, Recycler.class);
-                      // context.startActivity(intent);
-                   // });
-               // } else {
-                //    Intent intent = new Intent(context, Login.class);
-                 //   context.startActivity(intent);
-              //  }
-         //   });
-        //viewModel.verifyToken(savedToken);
+            /* ApiService apiService = RetrofitRequest.getRetrofitInstance(this).create(ApiService.class);
+            viewModel = new ViewModelProvider(this, new MainActivityViewModel.Factory(apiService)).get(MainActivityViewModel.class);
+            viewModel.getTokenValidity().observe(this, isTokenValid -> {
+                if (isTokenValid) {
+                    MisHabitaciones.setOnClickListener(v -> {
+                        Intent intent = new Intent(context, Recycler.class);
+                       context.startActivity(intent);
+                    });
+                } else {
+                    Intent intent = new Intent(context, Login.class);
+                   context.startActivity(intent);
+                }
+            });
+        viewModel.verifyToken(savedToken);*/
     }
 
 
