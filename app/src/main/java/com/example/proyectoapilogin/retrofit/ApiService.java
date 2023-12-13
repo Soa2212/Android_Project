@@ -7,6 +7,7 @@ import com.example.proyectoapilogin.response.HabitacionDetalleResponse;
 import com.example.proyectoapilogin.response.HabitacionResponse;
 import com.example.proyectoapilogin.response.LoginResponse;
 import com.example.proyectoapilogin.response.RegistroResponse;
+import com.example.proyectoapilogin.response.TemperaturaMaxResponse;
 
 import retrofit2.Call;
 import retrofit2.http.DELETE;
@@ -49,4 +50,14 @@ public interface ApiService {
     Call<LoginResponse> destroyRoom(
             @Header("Authorization") String token,
             @Path("id") int id);
+
+    @FormUrlEncoded
+    @POST("limtemperatura")
+    Call<TemperaturaMaxResponse> ajustarTemp(
+            @Header("Authorization") String token,
+            @Field("value") int temperatura);
+
+    @POST("logout")
+    Call<LoginResponse> logout(
+            @Header("Authorization") String token);
 }

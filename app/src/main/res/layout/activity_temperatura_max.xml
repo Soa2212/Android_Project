@@ -4,6 +4,82 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".views.TemperaturaMax">
+    tools:context=".views.TemperaturaMax"
+    android:background="@drawable/bckgrnd">
+
+    <LinearLayout
+        android:id="@+id/cuadro"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="120dp"
+        android:padding="20dp"
+        android:background="@drawable/items_detalle_habitacion8"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <LinearLayout
+            android:id="@+id/lyt2"
+            android:layout_marginTop="40dp"
+            android:layout_width="320dp"
+            android:layout_height="50dp">
+            <TextView
+                android:text="🛋️"
+                android:textSize="25dp"
+                android:gravity="center"
+                android:layout_width="50dp"
+                android:background="#03264d"
+                android:layout_height="match_parent"/>
+            <EditText
+                android:paddingStart="15dp"
+                android:background="#3d5678"
+                android:fontFamily="@font/fontios"
+                android:id="@+id/edTemp"
+                android:textColor="#AAFFFFFF"
+                android:textSize="18dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="Ingrese la temperatura"
+                android:textColorHint="#6BFFFFFF"/>
+            >
+        </LinearLayout>
+        <TextView
+            android:background="@null"
+            android:layout_marginTop="10dp"
+            android:id="@+id/tvErrores"
+            android:fontFamily="@font/fontios"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="#FF0000"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/lyt2"/>
+        <TextView
+            android:layout_marginTop="10dp"
+            android:id="@+id/btnAjustar"
+            android:gravity="center"
+            android:textSize="20dp"
+            android:background="@drawable/items_detalle_habitacion11"
+            android:layout_width="100dp"
+            android:layout_height="30dp"
+            android:text="Ajustar"
+            android:fontFamily="@font/fontios"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvErrores"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/errores"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        app:layout_constraintStart_toStartOf="@id/cuadro"
+        app:layout_constraintEnd_toEndOf="@id/cuadro"
+        app:layout_constraintTop_toBottomOf="@id/cuadro"
+        android:layout_marginTop="10dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
