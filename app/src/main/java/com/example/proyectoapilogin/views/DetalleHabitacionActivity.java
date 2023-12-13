@@ -38,8 +38,8 @@ import com.example.proyectoapilogin.view_model.DetalleHabitacionViewModel;
 
 public class DetalleHabitacionActivity extends AppCompatActivity {
     private DetalleHabitacionViewModel detalleHabitacionViewModel;
-    private LinearLayout layoutMenuContent,viewMenuClosed,Square1,Square2,Square3,Square4,Square5,Square6;
-    private TextView eliminar,Temperatura,Humedad,Voltaje,Movimiento,txtPuerta,txtLuz,TextSQ1,BloqSQ1,TextSQ2,BloqSQ2,TextSQ3,BloqSQ3,TextSQ4,BloqSQ4,TextSQ5,BloqSQ5,TextSQ6,BloqSQ6;
+    private LinearLayout popupMnu,layoutMenuContent,viewMenuClosed,Square1,Square2,Square3,Square4,Square5,Square6;
+    private TextView btnPopup1,btnPopup2,Xmenu,eliminar,Temperatura,Humedad,Voltaje,Movimiento,txtPuerta,txtLuz,TextSQ1,BloqSQ1,TextSQ2,BloqSQ2,TextSQ3,BloqSQ3,TextSQ4,BloqSQ4,TextSQ5,BloqSQ5,TextSQ6,BloqSQ6;
     private SwitchCompat S1,S2,S3,S4,S5,S6;
     private ImageView Puerta,luz;
     Context context = this;
@@ -127,11 +127,45 @@ public class DetalleHabitacionActivity extends AppCompatActivity {
         Square6 = findViewById(R.id.Square6);
         TextSQ6 = findViewById(R.id.TextSQ6);
         BloqSQ6 = findViewById(R.id.BloqSQ6);
+        popupMnu = findViewById(R.id.popupMnu);
+        Xmenu = findViewById(R.id.Xmenu);
+        btnPopup1 = findViewById(R.id.btnPopup1);
+        btnPopup2 = findViewById(R.id.btnPopup2);
 
         Drawable d1 = getResources().getDrawable(R.drawable.items_detalle_habitacion6);
         Drawable d2 = getResources().getDrawable(R.drawable.items_detalle_habitacion);
         int colorTexto1 = ContextCompat.getColor(context, R.color.gray);
         int colorTexto2 = ContextCompat.getColor(context, R.color.black);
+
+        btnPopup1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DetalleHabitacionActivity.this, TemperaturaMax.class);
+                startActivity(intent);
+            }
+        });
+
+
+        btnPopup2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popupMnu.setVisibility(View.INVISIBLE);
+            }
+        });
+
+        Xmenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popupMnu.setVisibility(View.INVISIBLE);
+            }
+        });
+
+        Square1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popupMnu.setVisibility(View.VISIBLE);
+            }
+        });
 
         eliminar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -173,6 +207,7 @@ public class DetalleHabitacionActivity extends AppCompatActivity {
                 if (isChecked) {
                     S1.getTrackDrawable().setTint(ContextCompat.getColor(context, R.color.thumn_on));
                     Square1.setBackground(d1);
+                    Square1.setClickable(false);
                     TextSQ1.setTextColor(colorTexto1);
                     Temperatura.setTextColor(colorTexto1);
                     BloqSQ1.setVisibility(View.VISIBLE);
@@ -180,6 +215,7 @@ public class DetalleHabitacionActivity extends AppCompatActivity {
                 } else {
                     S1.getTrackDrawable().setTint(ContextCompat.getColor(context, R.color.track));
                     Square1.setBackground(d2);
+                    Square1.setClickable(true);
                     TextSQ1.setTextColor(colorTexto2);
                     Temperatura.setTextColor(colorTexto2);
                     BloqSQ1.setVisibility(View.INVISIBLE);
