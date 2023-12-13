@@ -40,16 +40,26 @@
    </LinearLayout>
    <LinearLayout
        android:layout_width="match_parent"
-       android:layout_height="match_parent">
+       android:layout_height="match_parent"
+       android:orientation="vertical">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:text="Max"
+        android:gravity="center"
+        android:textSize="8sp"
+        android:id="@+id/tempMax"
+        />
     <TextView
         android:gravity="center"
-        android:paddingBottom="15dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="63dp"
         android:fontFamily="@font/fontios"
         android:textSize="40dp"
+        android:text=""
         android:id="@+id/temperatura"/>
    </LinearLayout>
+
    <TextView
        android:id="@+id/BloqSQ1"
        android:visibility="invisible"
@@ -59,6 +69,15 @@
        android:layout_width="match_parent"
        android:layout_height="30dp"
        android:text="Bloqueado"/>
+   <TextView
+       android:layout_marginTop="15dp"
+       android:id="@+id/exceed"
+       android:textSize="13sp"
+       android:layout_width="match_parent"
+       android:layout_height="35dp"
+       android:gravity="center"
+       android:text=""
+    />
   </LinearLayout>
   <LinearLayout
       android:id="@+id/Square2"
@@ -90,6 +109,7 @@
         android:layout_height="match_parent"
         android:fontFamily="@font/fontios"
         android:textSize="40dp"
+        android:text="43.0"
         android:id="@+id/humedad"/>
    </LinearLayout>
    <TextView

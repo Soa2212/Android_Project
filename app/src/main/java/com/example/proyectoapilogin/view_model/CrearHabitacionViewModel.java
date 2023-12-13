@@ -2,6 +2,7 @@ package com.example.proyectoapilogin.view_model;
 
 import android.content.SharedPreferences;
 import android.os.CountDownTimer;
+import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -42,6 +43,7 @@ public class CrearHabitacionViewModel extends ViewModel {
         apiService.storeRoom("Bearer " + token, name).enqueue(new Callback<CrearHabitacionResponse>() {
             @Override
             public void onResponse(Call<CrearHabitacionResponse> call, Response<CrearHabitacionResponse> response) {
+                Log.d("CrearHabitacionViewModel", "Entro a onResponse");
                 if (response.body() != null) {
                     if (response.body().getProcess().equals("success")) {
                         changeMessage.setValue(true);

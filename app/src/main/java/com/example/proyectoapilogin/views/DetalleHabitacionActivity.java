@@ -1,14 +1,21 @@
 package com.example.proyectoapilogin.views;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.Transformation;
@@ -25,6 +32,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.app.ActivityCompat;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -35,13 +45,15 @@ import com.example.proyectoapilogin.model.Habitacion;
 import com.example.proyectoapilogin.retrofit.ApiService;
 import com.example.proyectoapilogin.retrofit.RetrofitRequest;
 import com.example.proyectoapilogin.view_model.DetalleHabitacionViewModel;
+import com.example.proyectoapilogin.view_model.TemperaturaMaxViewModel;
 
 public class DetalleHabitacionActivity extends AppCompatActivity {
+    private TemperaturaMaxViewModel temperaturaMaxViewModel;
     private DetalleHabitacionViewModel detalleHabitacionViewModel;
-    private LinearLayout popupMnu,layoutMenuContent,viewMenuClosed,Square1,Square2,Square3,Square4,Square5,Square6;
-    private TextView btnPopup1,btnPopup2,Xmenu,eliminar,Temperatura,Humedad,Voltaje,Movimiento,txtPuerta,txtLuz,TextSQ1,BloqSQ1,TextSQ2,BloqSQ2,TextSQ3,BloqSQ3,TextSQ4,BloqSQ4,TextSQ5,BloqSQ5,TextSQ6,BloqSQ6;
-    private SwitchCompat S1,S2,S3,S4,S5,S6;
-    private ImageView Puerta,luz;
+    private LinearLayout popupMnu, layoutMenuContent, viewMenuClosed, Square1, Square2, Square3, Square4, Square5, Square6;
+    private TextView tempMax,exceed, btnPopup1, btnPopup2, Xmenu, eliminar, Temperatura, Humedad, Voltaje, Movimiento, txtPuerta, txtLuz, TextSQ1, BloqSQ1, TextSQ2, BloqSQ2, TextSQ3, BloqSQ3, TextSQ4, BloqSQ4, TextSQ5, BloqSQ5, TextSQ6, BloqSQ6;
+    private SwitchCompat S1, S2, S3, S4, S5, S6;
+    private ImageView Puerta, luz;
     Context context = this;
     private final Handler handler = new Handler();
     private int IdentifyFS;
@@ -89,9 +101,12 @@ public class DetalleHabitacionActivity extends AppCompatActivity {
         int habitacionId = getIntent().getIntExtra("habitacionId", -1);
 
         ApiService apiService = RetrofitRequest.getRetrofitInstance(this).create(ApiService.class);
-
+        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+        temperaturaMaxViewModel = new TemperaturaMaxViewModel(apiService, sharedPreferences);
         detalleHabitacionViewModel = new ViewModelProvider(this, new DetalleHabitacionViewModel.Factory(apiService)).get(DetalleHabitacionViewModel.class);
 
+        tempMax = findViewById(R.id.tempMax);
+        exceed = findViewById(R.id.exceed);
         eliminar = findViewById(R.id.btnEliminar);
         viewMenuClosed = findViewById(R.id.viewMenuClosed);
         layoutMenuContent = findViewById(R.id.layoutMenuContent);
@@ -131,6 +146,8 @@ public class DetalleHabitacionActivity extends AppCompatActivity {
         Xmenu = findViewById(R.id.Xmenu);
         btnPopup1 = findViewById(R.id.btnPopup1);
         btnPopup2 = findViewById(R.id.btnPopup2);
+
+        tempMax.setText("Max: " + String.valueOf(temperaturaMaxViewModel.loadMaxTemperature()) + "°");
 
         Drawable d1 = getResources().getDrawable(R.drawable.items_detalle_habitacion6);
         Drawable d2 = getResources().getDrawable(R.drawable.items_detalle_habitacion);
@@ -364,37 +381,59 @@ public class DetalleHabitacionActivity extends AppCompatActivity {
     private void fetchAndUpdateData(int habitacionId) {
         detalleHabitacionViewModel.fetchHabitacionById(habitacionId);
         detalleHabitacionViewModel.getHabitacion().observe(this, habitacion -> {
-            Log.d("Habitacion2212",String.valueOf(habitacion.getSensorMagnetico()));
-            Temperatura.setText(String.valueOf(habitacion.getTemperatura())+"°");
-            Humedad.setText(String.valueOf(habitacion.getHumedad())+"%");
-            Voltaje.setText(String.valueOf(habitacion.getVoltaje())+" V");
-            if(habitacion.getLuz()==1){
+            Log.d("Habitacion2212", String.valueOf(habitacion.getSensorMagnetico()));
+            Temperatura.setText(String.valueOf(habitacion.getTemperatura()) + "°");
+            Humedad.setText(String.valueOf(habitacion.getHumedad()) + "%");
+            Voltaje.setText(String.valueOf(habitacion.getVoltaje()) + " V");
+
+            double sensorTemperature = habitacion.getTemperatura();
+            double temperaturaMax = temperaturaMaxViewModel.loadMaxTemperature();
+            if (sensorTemperature > temperaturaMax) {
+                Temperatura.setTextColor(ContextCompat.getColor(this, android.R.color.holo_red_dark));
+                exceed.setTextColor(ContextCompat.getColor(this, android.R.color.holo_red_dark));
+                exceed.setText("Temperatura excedida");
+            } else {
+                Temperatura.setTextColor(ContextCompat.getColor(this, android.R.color.black));
+                exceed.setTextColor(ContextCompat.getColor(this, android.R.color.black));
+                exceed.setText("");
+            }
+
+
+            SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putLong("sensorTemperature", Double.doubleToRawLongBits(sensorTemperature));
+            editor.apply();
+
+            if (habitacion.getLuz() == 1) {
                 luz.setImageResource(R.drawable.foco_1);
                 txtLuz.setText("Encendido");
-            }
-            else{
+            } else {
                 luz.setImageResource(R.drawable.foco_0);
                 txtLuz.setText("Apagado");
 
             }
-            if(habitacion.getSensorMagnetico()==1){
+            if (habitacion.getSensorMagnetico() == 1) {
                 Puerta.setImageResource(R.drawable.candado_1);
                 txtPuerta.setText("Cerrado");
 
-            }
-            else{
+            } else {
                 Puerta.setImageResource(R.drawable.candado_0);
                 txtPuerta.setText("Abierto");
             }
-            if(habitacion.getMovimiento() == 1){
+            if (habitacion.getMovimiento() == 1) {
                 Movimiento.setText("Se detecto movimiento recientemente.");
-            }
-            else {
+            } else {
                 Movimiento.setText("No se ha detectado ningún movimiento recientemente.");
             }
         });
     }
 
+
+    private int getTextColorFromAttr(int attr) {
+        TypedValue typedValue = new TypedValue();
+        getTheme().resolveAttribute(attr, typedValue, true);
+        return typedValue.data;
+    }
     @Override
     protected void onDestroy() {
         handler.removeCallbacksAndMessages(null);

@@ -5,8 +5,12 @@ import androidx.core.content.ContextCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
@@ -38,10 +42,19 @@ public class TemperaturaMax extends AppCompatActivity {
         ajustar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                viewModel.ajustarTemperatura(temperatura.getText().toString());
+                String temp = temperatura.getText().toString();
+                viewModel.ajustarTemperatura(temp);
+                new CountDownTimer(60000, 1000) {
+                    public void onFinish() {
+                        ajustar.setEnabled(true);
+                    }
+                    public void onTick(long millisUntilFinished) {
+                        ajustar.setText("Intente en " + millisUntilFinished / 1000 + " segundos");
+                        ajustar.setEnabled(false);
+                    }
+                }.start();
             }
         });
-
         viewModel.getChangeTemp().observe(this, new Observer<Boolean>() {
             @Override
             public void onChanged(Boolean isChanged) {
@@ -62,4 +75,5 @@ public class TemperaturaMax extends AppCompatActivity {
             }
         });
     }
+
 }

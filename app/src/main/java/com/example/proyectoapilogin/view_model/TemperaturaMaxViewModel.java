@@ -1,5 +1,7 @@
 package com.example.proyectoapilogin.view_model;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.content.SharedPreferences;
 import android.os.CountDownTimer;
 
@@ -43,6 +45,9 @@ public class TemperaturaMaxViewModel extends ViewModel {
                 } else {
                     changeTemp.setValue(false);
                 }
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putLong("temperatura", Double.doubleToRawLongBits(Double.parseDouble(temperatura)));
+                editor.apply();
             }
 
             @Override
@@ -51,4 +56,10 @@ public class TemperaturaMaxViewModel extends ViewModel {
             }
         });
     }
+    public double loadMaxTemperature() {
+        long longValue = sharedPreferences.getLong("temperatura", Double.doubleToLongBits(30.0));
+        return Double.longBitsToDouble(longValue);
+    }
+
+
 }

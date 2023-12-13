@@ -58,12 +58,14 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/lyt2"/>
         <TextView
+            android:paddingRight="10dp"
+            android:paddingLeft="10dp"
             android:layout_marginTop="10dp"
             android:id="@+id/btnAjustar"
             android:gravity="center"
             android:textSize="20dp"
             android:background="@drawable/items_detalle_habitacion11"
-            android:layout_width="100dp"
+            android:layout_width="wrap_content"
             android:layout_height="30dp"
             android:text="Ajustar"
             android:fontFamily="@font/fontios"
