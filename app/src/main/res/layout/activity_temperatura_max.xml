@@ -26,7 +26,7 @@
             android:layout_width="320dp"
             android:layout_height="50dp">
             <TextView
-                android:text="🛋️"
+                android:text="🌡️"
                 android:textSize="25dp"
                 android:gravity="center"
                 android:layout_width="50dp"

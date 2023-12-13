@@ -42,14 +42,7 @@
        android:layout_width="match_parent"
        android:layout_height="match_parent"
        android:orientation="vertical">
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="10dp"
-        android:text="Max"
-        android:gravity="center"
-        android:textSize="8sp"
-        android:id="@+id/tempMax"
-        />
+
     <TextView
         android:gravity="center"
         android:layout_width="match_parent"
@@ -58,6 +51,14 @@
         android:textSize="40dp"
         android:text=""
         android:id="@+id/temperatura"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:text="Max"
+        android:gravity="center"
+        android:textSize="8sp"
+        android:id="@+id/tempMax"
+        />
    </LinearLayout>
 
    <TextView
@@ -109,7 +110,6 @@
         android:layout_height="match_parent"
         android:fontFamily="@font/fontios"
         android:textSize="40dp"
-        android:text="43.0"
         android:id="@+id/humedad"/>
    </LinearLayout>
    <TextView

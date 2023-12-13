@@ -226,6 +226,7 @@ public class DetalleHabitacionActivity extends AppCompatActivity {
                     Square1.setBackground(d1);
                     Square1.setClickable(false);
                     TextSQ1.setTextColor(colorTexto1);
+                    tempMax.setTextColor(colorTexto1);
                     Temperatura.setTextColor(colorTexto1);
                     BloqSQ1.setVisibility(View.VISIBLE);
 
@@ -234,6 +235,7 @@ public class DetalleHabitacionActivity extends AppCompatActivity {
                     Square1.setBackground(d2);
                     Square1.setClickable(true);
                     TextSQ1.setTextColor(colorTexto2);
+                    tempMax.setTextColor(colorTexto2);
                     Temperatura.setTextColor(colorTexto2);
                     BloqSQ1.setVisibility(View.INVISIBLE);
 
