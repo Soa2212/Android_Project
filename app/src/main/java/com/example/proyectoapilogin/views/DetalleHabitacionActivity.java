@@ -47,6 +47,8 @@ import com.example.proyectoapilogin.retrofit.RetrofitRequest;
 import com.example.proyectoapilogin.view_model.DetalleHabitacionViewModel;
 import com.example.proyectoapilogin.view_model.TemperaturaMaxViewModel;
 
+import java.text.DecimalFormat;
+
 public class DetalleHabitacionActivity extends AppCompatActivity {
     private TemperaturaMaxViewModel temperaturaMaxViewModel;
     private DetalleHabitacionViewModel detalleHabitacionViewModel;
@@ -227,7 +229,7 @@ public class DetalleHabitacionActivity extends AppCompatActivity {
                     Square1.setClickable(false);
                     TextSQ1.setTextColor(colorTexto1);
                     tempMax.setTextColor(colorTexto1);
-                    Temperatura.setTextColor(colorTexto1);
+                    Temperatura.setVisibility(View.INVISIBLE);
                     BloqSQ1.setVisibility(View.VISIBLE);
 
                 } else {
@@ -236,7 +238,7 @@ public class DetalleHabitacionActivity extends AppCompatActivity {
                     Square1.setClickable(true);
                     TextSQ1.setTextColor(colorTexto2);
                     tempMax.setTextColor(colorTexto2);
-                    Temperatura.setTextColor(colorTexto2);
+                    Temperatura.setVisibility(View.VISIBLE);
                     BloqSQ1.setVisibility(View.INVISIBLE);
 
 
@@ -384,7 +386,10 @@ public class DetalleHabitacionActivity extends AppCompatActivity {
         detalleHabitacionViewModel.fetchHabitacionById(habitacionId);
         detalleHabitacionViewModel.getHabitacion().observe(this, habitacion -> {
             Log.d("Habitacion2212", String.valueOf(habitacion.getSensorMagnetico()));
-            Temperatura.setText(String.valueOf(habitacion.getTemperatura()) + "°");
+            double temperatura = habitacion.getTemperatura();
+            DecimalFormat formato = new DecimalFormat("0.00");
+            String temperaturaFormateada = formato.format(temperatura);
+            Temperatura.setText(temperaturaFormateada + "°");
             Humedad.setText(String.valueOf(habitacion.getHumedad()) + "%");
             Voltaje.setText(String.valueOf(habitacion.getVoltaje()) + " V");
 
@@ -415,12 +420,12 @@ public class DetalleHabitacionActivity extends AppCompatActivity {
 
             }
             if (habitacion.getSensorMagnetico() == 1) {
-                Puerta.setImageResource(R.drawable.candado_1);
-                txtPuerta.setText("Cerrado");
-
-            } else {
                 Puerta.setImageResource(R.drawable.candado_0);
                 txtPuerta.setText("Abierto");
+
+            } else {
+                Puerta.setImageResource(R.drawable.candado_1);
+                txtPuerta.setText("Cerrado");
             }
             if (habitacion.getMovimiento() == 1) {
                 Movimiento.setText("Se detecto movimiento recientemente.");
