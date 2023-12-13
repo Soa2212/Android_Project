@@ -19,10 +19,9 @@ import com.example.proyectoapilogin.retrofit.RetrofitRequest;
 import com.example.proyectoapilogin.view_model.CrearHabitacionViewModel;
 
 public class CrearHabitacion extends AppCompatActivity {
-    private Button crearHabitacion;
     private EditText nombre;
     private CrearHabitacionViewModel room;
-    private TextView errores;
+    private TextView errores,crearHabitacion;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
