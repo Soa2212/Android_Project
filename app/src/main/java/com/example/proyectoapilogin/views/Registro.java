@@ -6,6 +6,7 @@ import androidx.core.content.ContextCompat;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -32,7 +33,7 @@ public class Registro extends AppCompatActivity {
         email = findViewById(R.id.etEmail);
         password = findViewById(R.id.etPasssword);
         passwordconfirm = findViewById(R.id.etPasswordConfirm);
-        errores = findViewById(R.id.tvError);
+        errores = findViewById(R.id.errores);
         login = findViewById(R.id.btnLogin);
 
         ApiService apiService = RetrofitRequest.getRetrofitInstance(this).create(ApiService.class);
@@ -76,6 +77,7 @@ public class Registro extends AppCompatActivity {
                 startActivity(intent);
                 finish();
             } else {
+                Log.d("ERROR", "Datos invalidos");
                 registro.setEnabled(true);
                 errores.setBackgroundResource(0);
                 errores.setGravity(Gravity.START);

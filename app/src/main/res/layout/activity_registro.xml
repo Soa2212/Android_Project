@@ -143,6 +143,23 @@
                 android:textSize="18dp" />
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:layout_width="300dp"
+            android:layout_height="50dp">
+
+            <TextView
+                android:id="@+id/errores"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#3d5678"
+                android:fontFamily="@font/fontios"
+                android:paddingStart="15dp"
+                android:textColor="#AAFFFFFF"
+                android:textColorHint="#AAFFFFFF"
+                android:textSize="12dp" />
+        </LinearLayout>
+
     </LinearLayout>
 
     <LinearLayout

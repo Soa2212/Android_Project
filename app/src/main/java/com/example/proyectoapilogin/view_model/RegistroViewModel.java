@@ -1,6 +1,7 @@
 package com.example.proyectoapilogin.view_model;
 
 import android.os.CountDownTimer;
+import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -8,7 +9,9 @@ import androidx.lifecycle.ViewModel;
 
 import com.example.proyectoapilogin.response.RegistroResponse;
 import com.example.proyectoapilogin.retrofit.ApiService;
+import com.google.gson.Gson;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,28 +59,37 @@ public class RegistroViewModel extends ViewModel {
                                 successfulRegister.setValue(true);
                             }
                         }.start();
-                    } else if (response.body().getProcess().equals("failed")) {
-                        RegistroResponse.ErrorMessage errorMessage = response.body().getMenssage();
-                        List<String> errorList = new ArrayList<>();
-                        if (errorMessage.getName() != null) {
-                            errorList.add("El nombre debe tener al menos 10 caracteres");
-                        }
-                        if (errorMessage.getEmail() != null) {
-                            errorList.add("Ingrese un email válido");
-                        }
-                        if (errorMessage.getPassword() != null) {
-                            errorList.add("La contraseña debe tener al menos 6 caracteres");
-                        }
-                        if (errorMessage.getPasswordConfirmation() != null) {
-                            errorList.add("Las contraseñas no coinciden");
-                        }
-                        String errorString = String.join("\n", errorList);
-                        registerError.setValue(errorString);
-                        successfulRegister.setValue(false);
                     }
                 } else {
-                    successfulRegister.setValue(false);
-                    System.out.println("Error de respuesta de la API: " + response.errorBody());
+                        try {
+                            // Convertir errorBody a una cadena
+                            String errorBodyString = response.errorBody().string();
+
+                            // Deserializar la cadena en un objeto RegistroResponse
+                            RegistroResponse registroResponse = new Gson().fromJson(errorBodyString, RegistroResponse.class);
+
+                            // Ahora puedes acceder al campo message
+                            RegistroResponse.ErrorMessage errorMessage = registroResponse.getMenssage();
+
+                            List<String> errorList = new ArrayList<>();
+                            if (errorMessage.getName() != null) {
+                                errorList.add("El nombre debe tener al menos 10 caracteres");
+                            }
+                            if (errorMessage.getEmail() != null) {
+                                errorList.add("El email debe tener un formato valido");
+                            }
+                            if (errorMessage.getPassword() != null) {
+                                errorList.add("La contraseña debe tener al menos 6 caracteres");
+                            }
+                            if (errorMessage.getPasswordConfirmation() != null) {
+                                errorList.add("Las contraseñas no coinciden");
+                            }
+                            String errorString = String.join("\n", errorList);
+                            registerError.setValue(errorString);
+                            successfulRegister.setValue(false);
+                    } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
                 }
             }
 

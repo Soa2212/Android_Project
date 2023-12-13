@@ -6,11 +6,11 @@ import java.util.List;
 
 public class RegistroResponse {
     private String process;
-    private ErrorMessage menssage;
+    private ErrorMessage message;
 
-    public RegistroResponse(String process, ErrorMessage menssage) {
+    public RegistroResponse(String process, ErrorMessage message) {
         this.process = process;
-        this.menssage = menssage;
+        this.message = message;
     }
 
     public String getProcess() {
@@ -18,7 +18,7 @@ public class RegistroResponse {
     }
 
     public ErrorMessage getMenssage() {
-        return menssage;
+        return message;
     }
 
     public static class ErrorMessage {
