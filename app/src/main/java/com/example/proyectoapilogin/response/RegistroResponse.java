@@ -4,21 +4,24 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
+import com.google.gson.JsonElement;
+import com.google.gson.annotations.SerializedName;
+
 public class RegistroResponse {
     private String process;
-    private ErrorMessage message;
+    private JsonElement message;
 
-    public RegistroResponse(String process, ErrorMessage message) {
+    public RegistroResponse(String process, JsonElement message) {
         this.process = process;
         this.message = message;
     }
 
-    public String getProcess() {
-        return process;
+    public JsonElement getMessage() {
+        return message;
     }
 
-    public ErrorMessage getMenssage() {
-        return message;
+    public String getProcess() {
+        return process;
     }
 
     public static class ErrorMessage {
