@@ -4,9 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import com.example.proyectoapilogin.views.CountdownManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -22,6 +22,8 @@ import com.example.proyectoapilogin.retrofit.ApiService;
 import com.example.proyectoapilogin.retrofit.RetrofitRequest;
 import com.example.proyectoapilogin.view_model.CrearHabitacionViewModel;
 import com.example.proyectoapilogin.view_model.TemperaturaMaxViewModel;
+
+import java.util.Calendar;
 
 public class TemperaturaMax extends AppCompatActivity {
 
@@ -64,18 +66,24 @@ public class TemperaturaMax extends AppCompatActivity {
                 String temp = temperatura.getText().toString();
                 viewModel.ajustarTemperatura(temp);
 
-                //Aca quiero que este el CountDown pero usando el manager en este caso para desactivar ajustar por un tiempo, los tiempos seral lo mismo
-                new CountDownTimer(60000, 1000) {
-                    public void onFinish() {
-                        ajustar.setClickable(true);
-                    }
+                // Utilizar CountdownManager para gestionar el tiempo de inactividad del botón
+                CountdownManager.getInstance(TemperaturaMax.this).startCountdown(60000, new CountdownManager.CountdownListener() {
+                    @Override
                     public void onTick(long millisUntilFinished) {
                         ajustar.setText("Intente en " + millisUntilFinished / 1000 + " segundos");
-                        ajustar.setClickable(false);
+                        ajustar.setEnabled(false);
                     }
-                }.start();
+
+                    @Override
+                    public void onFinish() {
+                        ajustar.setEnabled(true);
+                        ajustar.setText("Ajustar"); // Restaurar el texto original
+                    }
+                });
             }
         });
+
+
         viewModel.getChangeTemp().observe(this, new Observer<Boolean>() {
             @Override
             public void onChanged(Boolean isChanged) {
