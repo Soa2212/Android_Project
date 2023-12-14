@@ -63,13 +63,15 @@ public class TemperaturaMax extends AppCompatActivity {
             public void onClick(View v) {
                 String temp = temperatura.getText().toString();
                 viewModel.ajustarTemperatura(temp);
+
+                //Aca quiero que este el CountDown pero usando el manager en este caso para desactivar ajustar por un tiempo, los tiempos seral lo mismo
                 new CountDownTimer(60000, 1000) {
                     public void onFinish() {
-                        ajustar.setEnabled(true);
+                        ajustar.setClickable(true);
                     }
                     public void onTick(long millisUntilFinished) {
                         ajustar.setText("Intente en " + millisUntilFinished / 1000 + " segundos");
-                        ajustar.setEnabled(false);
+                        ajustar.setClickable(false);
                     }
                 }.start();
             }
