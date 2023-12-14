@@ -21,24 +21,23 @@ public class HabitacionRepository {
         this.apiService = apiService;
     }
 
-    public LiveData<List<Habitacion>> getHabitaciones() {
+    public LiveData<List<Habitacion>> getHabitaciones(String token) {
         MutableLiveData<List<Habitacion>> habitaciones = new MutableLiveData<>();
+        Log.d("Habitaciones",token);
 
-        apiService.getHabitaciones().enqueue(new Callback<HabitacionResponse>() {
+        apiService.getHabitaciones("Bearer " + token).enqueue(new Callback<HabitacionResponse>() {
+
             @Override
             public void onResponse(Call<HabitacionResponse> call, Response<HabitacionResponse> response) {
                 if (response.isSuccessful()) {
                     habitaciones.setValue(response.body().getHabitaciones());
-                    Log.d("HabitacionRepository", "Petición exitosa. Habitaciones obtenidas: " + response.body().getHabitaciones());
-                } else {
-                    Log.e("HabitacionRepository", "Error en la petición: " + response.message());
+                    Log.d("Habitaciones",String.valueOf(response.body().getHabitaciones()));
                 }
             }
 
             @Override
             public void onFailure(Call<HabitacionResponse> call, Throwable t) {
-                Log.e("HabitacionRepository", "Error en la petición: " + t.getMessage());
-                t.printStackTrace();
+                // Manejo de errores
             }
         });
 

@@ -20,7 +20,8 @@ import retrofit2.http.Path;
 
 public interface ApiService {
     @GET("roomsUser")
-    Call<HabitacionResponse> getHabitaciones();
+    Call<HabitacionResponse> getHabitaciones(
+            @Header("Authorization") String token);
 
     @GET("roomdetail/{id}")
     Call<HabitacionDetalleResponse> getHabitacionById(@Path("id") int id);

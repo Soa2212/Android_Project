@@ -16,33 +16,35 @@ import com.example.proyectoapilogin.constants.AppConstant;
 public class RetrofitRequest {
     private static Retrofit retrofit;
 
-    private static String getAuthTokenFromSharedPreferences(Context context) {
-        SharedPreferences sharedPreferences = context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
-        return sharedPreferences.getString("token", null);
-    }
-
     public static Retrofit getRetrofitInstance(Context context) {
-        if (retrofit == null) {
-            OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
+        OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
 
+        httpClient.addInterceptor(chain -> {
             String authToken = getAuthTokenFromSharedPreferences(context);
 
-            if (authToken != null && !authToken.isEmpty()) {
-                httpClient.addInterceptor(chain -> {
-                    Request original = chain.request();
-                    Request request = original.newBuilder()
-                            .header("Authorization", "Bearer " + authToken)
-                            .method(original.method(), original.body())
-                            .build();
-                    return chain.proceed(request);
-                });
-            }
+            Request original = chain.request();
+            Request request = original.newBuilder()
+                    .header("Authorization", "Bearer " + authToken)
+                    .method(original.method(), original.body())
+                    .build();
+
+            return chain.proceed(request);
+        });
+
+        if (retrofit == null) {
             retrofit = new Retrofit.Builder()
                     .baseUrl(AppConstant.BASE_URL)
                     .addConverterFactory(GsonConverterFactory.create())
                     .client(httpClient.build())
                     .build();
         }
+
         return retrofit;
     }
+
+    private static String getAuthTokenFromSharedPreferences(Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        return sharedPreferences.getString("token", null);
+    }
 }
+
