@@ -31,6 +31,7 @@ public class TemperaturaMax extends AppCompatActivity {
     private TemperaturaMaxViewModel viewModel;
     private LinearLayout lytReturn;
     private TextView txtReturn;
+    private SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +42,8 @@ public class TemperaturaMax extends AppCompatActivity {
         errores = findViewById(R.id.errores);
         lytReturn = findViewById(R.id.lytReturn);
         txtReturn = findViewById(R.id.txtReturn);
+        sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+
         txtReturn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -54,11 +57,15 @@ public class TemperaturaMax extends AppCompatActivity {
                 ReturnToMain();
             }
         });
-        
 
         ApiService apiService = RetrofitRequest.getRetrofitInstance(this).create(ApiService.class);
-        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
         viewModel = new TemperaturaMaxViewModel(apiService, sharedPreferences);
+
+        long lastClickTime = sharedPreferences.getLong("lastClickTime", 0);
+        long currentTime = System.currentTimeMillis();
+        if (currentTime - lastClickTime < 60000) {
+            startCountdown(60000 - (currentTime - lastClickTime));
+        }
 
         ajustar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,23 +73,13 @@ public class TemperaturaMax extends AppCompatActivity {
                 String temp = temperatura.getText().toString();
                 viewModel.ajustarTemperatura(temp);
 
-                // Utilizar CountdownManager para gestionar el tiempo de inactividad del botón
-                CountdownManager.getInstance(TemperaturaMax.this).startCountdown(60000, new CountdownManager.CountdownListener() {
-                    @Override
-                    public void onTick(long millisUntilFinished) {
-                        ajustar.setText("Intente en " + millisUntilFinished / 1000 + " segundos");
-                        ajustar.setEnabled(false);
-                    }
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putLong("lastClickTime", System.currentTimeMillis());
+                editor.apply();
 
-                    @Override
-                    public void onFinish() {
-                        ajustar.setEnabled(true);
-                        ajustar.setText("Ajustar"); // Restaurar el texto original
-                    }
-                });
+                startCountdown(60000);
             }
         });
-
 
         viewModel.getChangeTemp().observe(this, new Observer<Boolean>() {
             @Override
@@ -105,9 +102,22 @@ public class TemperaturaMax extends AppCompatActivity {
         });
     }
 
+    private void startCountdown(long millisInFuture) {
+        new CountDownTimer(millisInFuture, 1000) {
+            public void onTick(long millisUntilFinished) {
+                ajustar.setText("Intente en " + millisUntilFinished / 1000 + " segundos");
+                ajustar.setClickable(false);
+            }
+
+            public void onFinish() {
+                ajustar.setClickable(true);
+                ajustar.setText("Ajustar"); // Restaurar el texto original
+            }
+        }.start();
+    }
+
     private void ReturnToMain() {
         Intent intent = new Intent(TemperaturaMax.this,Recycler.class);
         startActivity(intent);
     }
-
 }
