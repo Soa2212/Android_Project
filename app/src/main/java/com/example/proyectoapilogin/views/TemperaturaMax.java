@@ -14,6 +14,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.proyectoapilogin.R;
@@ -26,6 +27,8 @@ public class TemperaturaMax extends AppCompatActivity {
 
     TextView temperatura, ajustar, errores;
     private TemperaturaMaxViewModel viewModel;
+    private LinearLayout lytReturn;
+    private TextView txtReturn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +37,22 @@ public class TemperaturaMax extends AppCompatActivity {
         temperatura = findViewById(R.id.edTemp);
         ajustar = findViewById(R.id.btnAjustar);
         errores = findViewById(R.id.errores);
+        lytReturn = findViewById(R.id.lytReturn);
+        txtReturn = findViewById(R.id.txtReturn);
+        txtReturn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ReturnToMain();
+            }
+        });
+
+        lytReturn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ReturnToMain();
+            }
+        });
+        
 
         ApiService apiService = RetrofitRequest.getRetrofitInstance(this).create(ApiService.class);
         SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
@@ -74,6 +93,11 @@ public class TemperaturaMax extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private void ReturnToMain() {
+        Intent intent = new Intent(TemperaturaMax.this,Recycler.class);
+        startActivity(intent);
     }
 
 }

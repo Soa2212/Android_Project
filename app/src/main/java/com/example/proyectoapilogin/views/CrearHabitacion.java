@@ -11,6 +11,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.proyectoapilogin.R;
@@ -23,6 +24,9 @@ public class CrearHabitacion extends AppCompatActivity {
     private CrearHabitacionViewModel room;
     private TextView errores,crearHabitacion;
 
+    private LinearLayout lytReturn;
+    private TextView txtReturn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +34,22 @@ public class CrearHabitacion extends AppCompatActivity {
         crearHabitacion = findViewById(R.id.btnCrear);
         nombre = findViewById(R.id.edNombre);
         errores = findViewById(R.id.tvErrores);
+        lytReturn = findViewById(R.id.lytReturn);
+        txtReturn = findViewById(R.id.txtReturn);
+
+        txtReturn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ReturnToMain();
+            }
+        });
+
+        lytReturn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ReturnToMain();
+            }
+        });
 
         ApiService apiService = RetrofitRequest.getRetrofitInstance(this).create(ApiService.class);
         SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
@@ -67,5 +87,11 @@ public class CrearHabitacion extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+
+    private void ReturnToMain() {
+        Intent intent = new Intent(CrearHabitacion.this,MainActivity.class);
+        startActivity(intent);
     }
 }

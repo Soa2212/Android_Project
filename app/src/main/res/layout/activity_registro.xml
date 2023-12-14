@@ -143,22 +143,6 @@
                 android:textSize="18dp" />
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_marginTop="10dp"
-            android:layout_width="300dp"
-            android:layout_height="50dp">
-
-            <TextView
-                android:id="@+id/errores"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="#3d5678"
-                android:fontFamily="@font/fontios"
-                android:paddingStart="15dp"
-                android:textColor="#AAFFFFFF"
-                android:textColorHint="#AAFFFFFF"
-                android:textSize="12dp" />
-        </LinearLayout>
 
     </LinearLayout>
 
@@ -190,7 +174,7 @@
         android:fontFamily="@font/fontios"
         android:textColor="@color/white"
         android:textSize="15dp"
-        android:id="@+id/tvError"
+        android:id="@+id/errores"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/ly2"
         app:layout_constraintEnd_toEndOf="parent"

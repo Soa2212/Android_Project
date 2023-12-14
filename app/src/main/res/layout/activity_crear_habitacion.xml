@@ -70,6 +70,45 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvErrores"/>
 </LinearLayout>
+    <LinearLayout
+    android:id="@+id/lymnu1"
+    android:layout_width="match_parent"
+    android:layout_height="65dp"
+    android:background="@drawable/items_detalle_habitacion15"
+    android:orientation="horizontal"
+    app:layout_constraintBottom_toBottomOf="parent">
+
+
+    <LinearLayout
+        android:id="@+id/lytReturn"
+        android:layout_width="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_height="match_parent">
+        <ImageView
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:src="@drawable/flecha1"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="-5dp"
+            />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/txtReturn"
+        android:layout_width="100dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="-38dp"
+        android:layout_height="match_parent"
+        android:fontFamily="@font/fontios"
+        android:gravity="center"
+        android:text="Regresar"
+        android:textColor="@color/black"
+        android:textSize="17dp" />
+
+
+</LinearLayout>
+
 
 
 
