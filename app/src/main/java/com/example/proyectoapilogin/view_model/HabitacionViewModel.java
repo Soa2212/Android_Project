@@ -1,71 +1,41 @@
 package com.example.proyectoapilogin.view_model;
-import android.util.Log;
 
-import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.annotation.NonNull;
 
 import com.example.proyectoapilogin.model.Habitacion;
-import com.example.proyectoapilogin.response.HabitacionResponse;
 import com.example.proyectoapilogin.retrofit.ApiService;
-
+import com.example.proyectoapilogin.Repositories.HabitacionRepository;
 import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
 public class HabitacionViewModel extends ViewModel {
-    private MutableLiveData<List<Habitacion>> habitaciones = new MutableLiveData<>();
-    private ApiService apiService;
+    private final HabitacionRepository habitacionRepository;
 
-    public HabitacionViewModel(ApiService apiService) {
-        this.apiService = apiService;
-        fetchHabitaciones();
+    public HabitacionViewModel(HabitacionRepository habitacionRepository) {
+        this.habitacionRepository = habitacionRepository;
     }
 
     public LiveData<List<Habitacion>> getHabitaciones() {
-        return habitaciones;
-    }
-
-    private void fetchHabitaciones() {
-        apiService.getHabitaciones().enqueue(new Callback<HabitacionResponse>() {
-            @Override
-            public void onResponse(Call<HabitacionResponse> call, Response<HabitacionResponse> response) {
-                if (response.isSuccessful()) {
-                    habitaciones.setValue(response.body().getHabitaciones());
-                    Log.d("HabitacionViewModel", "Petición exitosa. Habitaciones obtenidas: " + response.body().getHabitaciones());
-                }
-                else {
-                    Log.e("HabitacionViewModel", "Error en la petición: " + response.message());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<HabitacionResponse> call, Throwable t) {
-                Log.e("HabitacionViewModel", "Error en la petición: " + t.getMessage());
-                t.printStackTrace();
-            }
-        });
+        return habitacionRepository.getHabitaciones();
     }
 
     public static class Factory extends ViewModelProvider.NewInstanceFactory {
-        private final ApiService apiService;
+        private final HabitacionRepository habitacionRepository;
 
-        public Factory(ApiService apiService) {
-            this.apiService = apiService;
+        public Factory(HabitacionRepository habitacionRepository) {
+            this.habitacionRepository = habitacionRepository;
         }
 
         @NonNull
         @Override
         public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
             if (modelClass.isAssignableFrom(HabitacionViewModel.class)) {
-                return (T) new HabitacionViewModel(apiService);
+                return (T) new HabitacionViewModel(habitacionRepository);
             }
             throw new IllegalArgumentException("Unknown ViewModel class");
         }
     }
-
 }
+

@@ -60,24 +60,6 @@ public class MainActivityViewModel extends ViewModel {
         });
     }
 
-    public void verifyToken(String token) {
-        apiService.verificarToken(token).enqueue(new Callback<Token>() {
-            @Override
-            public void onResponse(Call<Token> call, Response<Token> response) {
-                if (response.isSuccessful()) {
-                    isTokenValid.setValue(response.body().getMessage());
-                } else {
-                    isTokenValid.setValue(false);
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Token> call, Throwable t) {
-                isTokenValid.setValue(false);
-            }
-        });
-    }
-
     public static class Factory implements ViewModelProvider.Factory {
         private final ApiService apiService;
 

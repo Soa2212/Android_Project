@@ -1,32 +1,20 @@
 package com.example.proyectoapilogin.view_model;
 
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.util.Log;
-
+import com.example.proyectoapilogin.Repositories.LoginRepository;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
-
-import com.example.proyectoapilogin.response.LoginResponse;
-import com.example.proyectoapilogin.retrofit.ApiService;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class LoginViewModel extends ViewModel {
     private final MutableLiveData<String> loginError = new MutableLiveData<>();
     private final MutableLiveData<Boolean> block = new MutableLiveData<>();
     private final MutableLiveData<Boolean> finishActivity = new MutableLiveData<>();
     private final MutableLiveData<Boolean> successfulLogin = new MutableLiveData<>();
-    private ApiService apiService;
-    private Context context;
+    private final LoginRepository loginRepository;
 
-
-    public LoginViewModel(ApiService apiService, Context context) {
-        this.apiService = apiService;
-        this.context = context;
+    public LoginViewModel(LoginRepository loginRepository) {
+        this.loginRepository = loginRepository;
     }
 
     public MutableLiveData<Boolean> getBlock() {
@@ -42,38 +30,17 @@ public class LoginViewModel extends ViewModel {
     }
 
     public void verifyLogin(String email, String password) {
-        apiService.login(email, password).enqueue(new Callback<LoginResponse>() {
-            @Override
-            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
-                if (response.body() != null) {
-                    if (response.body().getProcess().equals("successful")) {
-                        loginError.setValue("Iniciando sesión...");
-                        saveTokenInSharedPreferences(response.body().getToken());
-                        block.setValue(true);
-                        successfulLogin.setValue(true);
-                    } else if (response.body().getProcess().equals("failed")) {
-                        block.setValue(false);
-                        loginError.setValue("Error al iniciar sesión. Verifique sus datos");
-                    }
-                } else {
-                    block.setValue(false);
-                    loginError.setValue("Error al iniciar sesión. Verifique sus datos");
-                }
-            }
+        MutableLiveData<Boolean> loginResult = loginRepository.verifyLogin(email, password);
 
-            @Override
-            public void onFailure(Call<LoginResponse> call, Throwable t) {
-
+        loginResult.observeForever(result -> {
+            if (result) {
+                loginError.setValue("Iniciando sesión...");
+                block.setValue(true);
+                successfulLogin.setValue(true);
+            } else {
+                block.setValue(false);
+                loginError.setValue("Error al iniciar sesión. Verifique sus datos");
             }
         });
     }
-
-    private void saveTokenInSharedPreferences(String token) {
-        SharedPreferences sharedPreferences = context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("token", token);
-        Log.d("Token22",token);
-        editor.apply();
-    }
-
 }

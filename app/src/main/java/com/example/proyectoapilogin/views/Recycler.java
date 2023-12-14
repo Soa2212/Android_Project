@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.proyectoapilogin.R;
+import com.example.proyectoapilogin.Repositories.HabitacionRepository;
 import com.example.proyectoapilogin.adapter.HabitacionAdapter;
 import com.example.proyectoapilogin.retrofit.ApiService;
 import com.example.proyectoapilogin.retrofit.RetrofitRequest;
@@ -39,8 +40,9 @@ public class Recycler extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
 
         ApiService apiService = RetrofitRequest.getRetrofitInstance(this).create(ApiService.class);
+        HabitacionRepository habitacionRepository = new HabitacionRepository(apiService);
 
-        habitacionViewModel = new ViewModelProvider(this, new HabitacionViewModel.Factory(apiService)).get(HabitacionViewModel.class);
+        HabitacionViewModel habitacionViewModel = new ViewModelProvider(this, new HabitacionViewModel.Factory(habitacionRepository)).get(HabitacionViewModel.class);
 
         habitacionViewModel.getHabitaciones().observe(this, habitaciones -> {
             adapter.setHabitaciones(habitaciones);

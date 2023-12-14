@@ -220,6 +220,8 @@ public class DetalleHabitacionActivity extends AppCompatActivity {
             }
         });
 
+
+
         S1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -385,7 +387,9 @@ public class DetalleHabitacionActivity extends AppCompatActivity {
     private void fetchAndUpdateData(int habitacionId) {
         detalleHabitacionViewModel.fetchHabitacionById(habitacionId);
         detalleHabitacionViewModel.getHabitacion().observe(this, habitacion -> {
-            Log.d("Habitacion2212", String.valueOf(habitacion.getSensorMagnetico()));
+            if (habitacion != null) {
+                Log.d("Habitacion2212", String.valueOf(habitacion.getSensorMagnetico()));
+
             double temperatura = habitacion.getTemperatura();
             DecimalFormat formato = new DecimalFormat("0.00");
             String temperaturaFormateada = formato.format(temperatura);
@@ -432,6 +436,10 @@ public class DetalleHabitacionActivity extends AppCompatActivity {
             } else {
                 Movimiento.setText("No se ha detectado ningún movimiento recientemente.");
             }
+
+        } else {
+            Log.e("Habitacion2212", "Habitacion es null");
+        }
         });
     }
 

@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.proyectoapilogin.R;
+import com.example.proyectoapilogin.Repositories.LoginRepository;
 import com.example.proyectoapilogin.retrofit.ApiService;
 import com.example.proyectoapilogin.retrofit.RetrofitRequest;
 import com.example.proyectoapilogin.view_model.LoginViewModel;
@@ -31,7 +32,8 @@ public class Login extends AppCompatActivity {
         registro = findViewById(R.id.btnRegister);
 
         ApiService apiService = RetrofitRequest.getRetrofitInstance(this).create(ApiService.class);
-        loginViewModel = new LoginViewModel(apiService,this);
+        LoginRepository loginRepository = new LoginRepository(apiService,this);
+        loginViewModel = new LoginViewModel(loginRepository);
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override
